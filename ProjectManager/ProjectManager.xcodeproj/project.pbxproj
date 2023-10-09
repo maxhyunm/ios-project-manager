@@ -33,12 +33,29 @@
 		BAD471E62ACF2AC90021323A /* ChangeStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471E52ACF2AC90021323A /* ChangeStatusViewModel.swift */; };
 		BAD471EB2ACF2AF30021323A /* ChangeStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471EA2ACF2AF30021323A /* ChangeStatusViewController.swift */; };
 		BAD471ED2ACF2B080021323A /* PopOverButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471EC2ACF2B080021323A /* PopOverButton.swift */; };
+		BAD472052AD3C7120021323A /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = BAD472042AD3C7120021323A /* RxBlocking */; };
+		BAD472072AD3C7120021323A /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = BAD472062AD3C7120021323A /* RxCocoa */; };
+		BAD472092AD3C7120021323A /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = BAD472082AD3C7120021323A /* RxRelay */; };
+		BAD4720B2AD3C7120021323A /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BAD4720A2AD3C7120021323A /* RxSwift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ToDoListBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ToDoListBaseViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BAD4721A2AD3C7720021323A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		BA6463572AC042A90080E80D /* ToDo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDo.xcdatamodel; sourceTree = "<group>"; };
@@ -76,10 +93,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAD4720B2AD3C7120021323A /* RxSwift in Frameworks */,
 				BA6463142AB94FA10080E80D /* FirebaseFirestoreSwift in Frameworks */,
+				BAD472052AD3C7120021323A /* RxBlocking in Frameworks */,
 				BA64630E2AB94FA10080E80D /* FirebaseDatabaseSwift in Frameworks */,
+				BAD472072AD3C7120021323A /* RxCocoa in Frameworks */,
 				BA6463122AB94FA10080E80D /* FirebaseFirestoreCombine-Community in Frameworks */,
 				BA64630C2AB94FA10080E80D /* FirebaseDatabase in Frameworks */,
+				BAD472092AD3C7120021323A /* RxRelay in Frameworks */,
 				BA6463102AB94FA10080E80D /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,11 +240,19 @@
 			path = PopOverView;
 			sourceTree = "<group>";
 		};
+		BAD472032AD3C7120021323A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
+				BAD472032AD3C7120021323A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -259,6 +288,7 @@
 				C7431EFE25F51E1D0094C4CF /* Sources */,
 				C7431EFF25F51E1D0094C4CF /* Frameworks */,
 				C7431F0025F51E1D0094C4CF /* Resources */,
+				BAD4721A2AD3C7720021323A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -271,6 +301,10 @@
 				BA64630F2AB94FA10080E80D /* FirebaseFirestore */,
 				BA6463112AB94FA10080E80D /* FirebaseFirestoreCombine-Community */,
 				BA6463132AB94FA10080E80D /* FirebaseFirestoreSwift */,
+				BAD472042AD3C7120021323A /* RxBlocking */,
+				BAD472062AD3C7120021323A /* RxCocoa */,
+				BAD472082AD3C7120021323A /* RxRelay */,
+				BAD4720A2AD3C7120021323A /* RxSwift */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -301,6 +335,7 @@
 			mainGroup = C7431EF925F51E1D0094C4CF;
 			packageReferences = (
 				BA64630A2AB94FA10080E80D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				BAD471EE2AD3C62E0021323A /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -555,6 +590,14 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		BAD471EE2AD3C62E0021323A /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -582,6 +625,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BA64630A2AB94FA10080E80D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		BAD472042AD3C7120021323A /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAD471EE2AD3C62E0021323A /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
+		};
+		BAD472062AD3C7120021323A /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAD471EE2AD3C62E0021323A /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		BAD472082AD3C7120021323A /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAD471EE2AD3C62E0021323A /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		BAD4720A2AD3C7120021323A /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAD471EE2AD3C62E0021323A /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 
