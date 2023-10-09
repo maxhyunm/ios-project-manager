@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class ToDoListChildViewController: UIViewController {
     private let status: ToDoStatus
     private let headerView: ToDoListHeaderView
     private let viewModel: ToDoChildViewModelType
+    private let disposeBag = DisposeBag()
     
     let today = Date().timeIntervalSinceReferenceDate
     private let dateFormatter: DateFormatter
@@ -111,35 +114,37 @@ extension ToDoListChildViewController: UITableViewDelegate, UITableViewDataSourc
 
 extension ToDoListChildViewController {
     private func setupBinding() {
-        viewModel.outputs.action.bind { [weak self] action in
-            guard let self,
-                  let action else { return }
-            
-            switch action.type {
-            case .create:
-                let index = self.viewModel.outputs.entityList.count - 1
-                self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-            case .read, .update:
-                self.tableView.reloadData()
-            case .delete:
-                guard let indexInformation = action.extraInformation.filter({ $0.key == "index" }).first,
-                      let index = indexInformation.value as? Int else { return }
-                self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-            }
-            
-            self.headerView.setupTotalCount(viewModel.outputs.entityList.count)
-        }
+        viewModel.outputs.action.subscribe(on: MainScheduler.instance)
+            .bind { [weak self] action in
+                guard let self,
+                      let action else { return }
+                
+                switch action.type {
+                case .create:
+                    let index = self.viewModel.outputs.entityList.count - 1
+                    self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+                case .read, .update:
+                    self.tableView.reloadData()
+                case .delete:
+                    guard let indexInformation = action.extraInformation.filter({ $0.key == "index" }).first,
+                          let index = indexInformation.value as? Int else { return }
+                    self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+                }
+                
+                self.headerView.setupTotalCount(viewModel.outputs.entityList.count)
+            }.disposed(by: disposeBag)
         
-        viewModel.outputs.error.bind { [weak self] error in
-            guard let self,
-                  let error else { return }
-            let alertBuilder = AlertBuilder(prefferedStyle: .alert)
-                .setTitle(error.alertTitle)
-                .setMessage(error.alertMessage)
-                .addAction(.confirm)
-                .build()
-            present(alertBuilder, animated: true)
-        }
+        viewModel.outputs.error.subscribe(on: MainScheduler.instance)
+            .bind { [weak self] error in
+                guard let self,
+                      let error else { return }
+                let alertBuilder = AlertBuilder(prefferedStyle: .alert)
+                    .setTitle(error.alertTitle)
+                    .setMessage(error.alertMessage)
+                    .addAction(.confirm)
+                    .build()
+                present(alertBuilder, animated: true)
+            }.disposed(by: disposeBag)
     }
 }
 

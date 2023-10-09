@@ -5,11 +5,12 @@
 //  Created by Max on 2023/10/06.
 //
 
+import RxCocoa
+
 final class ChangeStatusViewModel: ToDoChangeStatusViewModelType, ToDoChangeStatusViewModelOutputsType {
     weak var delegate: ToDoListChildViewModelDelegate?
     
-    var errorMessage: Observable<String?> = Observable(nil)
-    var error: Observable<CoreDataError?> = Observable(nil)
+    var error = BehaviorRelay<CoreDataError?>(value: nil)
     
     var inputs: ToDoChangeStatusViewModelInputsType { return self }
     var outputs: ToDoChangeStatusViewModelOutputsType { return self }
@@ -25,8 +26,7 @@ extension ChangeStatusViewModel: ViewModelTypeWithError {
     }
     
     func setError(_ error: CoreDataError) {
-        self.errorMessage = Observable(error.alertMessage)
-        self.error = Observable(error)
+        self.error.accept(error)
     }
 }
 

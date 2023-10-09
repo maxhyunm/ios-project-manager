@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import RxCocoa
 
 final class ToDoListBaseViewModel: ToDoBaseViewModelType, ToDoBaseViewModelOutputsType {
     private let useCase: ToDoUseCase
@@ -14,7 +15,7 @@ final class ToDoListBaseViewModel: ToDoBaseViewModelType, ToDoBaseViewModelOutpu
     var inputs: ToDoBaseViewModelInputsType { return self }
     var outputs: ToDoBaseViewModelOutputsType { return self }
     
-    var error: Observable<CoreDataError?> = Observable(nil)
+    var error = BehaviorRelay<CoreDataError?>(value: nil)
     
     init(useCase: ToDoUseCase) {
         self.useCase = useCase
@@ -31,7 +32,7 @@ extension ToDoListBaseViewModel: ViewModelTypeWithError {
     }
     
     func setError(_ error: CoreDataError) {
-        self.error = Observable(error)
+        self.error.accept(error)
     }
 }
  
@@ -66,6 +67,6 @@ extension ToDoListBaseViewModel {
 extension ToDoListBaseViewModel: ToDoListBaseViewModelDelegate {
     func updateChild(_ status: ToDoStatus, action: Output) throws {
         children[status]?.entityList = try useCase.fetchDataByStatus(for: status)
-        children[status]?.action.value = action
+        children[status]?.action.accept(action)
     }
 }

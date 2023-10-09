@@ -5,9 +5,12 @@
 //  Last modified by Max.
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class ToDoListBaseViewController: UIViewController {
     private let viewModel: ToDoBaseViewModelType
+    private let disposeBag = DisposeBag()
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -94,7 +97,8 @@ final class ToDoListBaseViewController: UIViewController {
     }
     
     private func setupBinding() {
-        viewModel.outputs.error.bind { [weak self] error in
+        viewModel.outputs.error.subscribe(on: MainScheduler.instance)
+            .bind { [weak self] error in
             guard let self,
                   let error else { return }
             let alertBuilder = AlertBuilder(prefferedStyle: .alert)
@@ -103,7 +107,7 @@ final class ToDoListBaseViewController: UIViewController {
                 .addAction(.confirm)
                 .build()
             present(alertBuilder, animated: true)
-        }
+        }.disposed(by: disposeBag)
     }
 }
 

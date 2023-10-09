@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxCocoa
 
 final class ToDoListChildViewModel: ToDoChildViewModelType, ToDoChildViewModelOutputsType {
     var  useCase: ToDoUseCase
@@ -16,9 +17,9 @@ final class ToDoListChildViewModel: ToDoChildViewModelType, ToDoChildViewModelOu
     
     private let status: ToDoStatus
     var entityList: [ToDo] = []
-    var action: Observable<Output?> = Observable(nil)
+    var action = BehaviorRelay<Output?>(value: nil)
     
-    var error: Observable<CoreDataError?> = Observable(nil)
+    var error = BehaviorRelay<CoreDataError?>(value: nil)
     
     init(status: ToDoStatus, useCase: ToDoUseCase) {
         self.status = status
@@ -36,7 +37,7 @@ extension ToDoListChildViewModel: ViewModelTypeWithError {
     }
     
     func setError(_ error: CoreDataError) {
-        self.error = Observable(error)
+        self.error.accept(error)
     }
 }
 
@@ -44,7 +45,7 @@ extension ToDoListChildViewModel: ToDoChildViewModelInputsType {
     func viewWillAppear() {
         do {
             entityList = try useCase.fetchDataByStatus(for: status)
-            action.value = Output(type: .read)
+            action.accept(Output(type: .read))
         } catch(let error) {
             handle(error: error)
         }
@@ -55,7 +56,7 @@ extension ToDoListChildViewModel: ToDoChildViewModelInputsType {
         do {
             try useCase.deleteData(entity)
             entityList = try useCase.fetchDataByStatus(for: status)
-            action.value = Output(type: .delete, extraInformation: [KeywordArgument(key: "index", value: index)])
+            action.accept(Output(type: .delete, extraInformation: [KeywordArgument(key: "index", value: index)]))
         } catch(let error) {
             handle(error: error)
         }
@@ -68,7 +69,7 @@ extension ToDoListChildViewModel: ToDoListChildViewModelDelegate {
         do {
             try useCase.updateData(entity, values: [KeywordArgument(key: "status", value: newStatus.rawValue)])
             entityList = try useCase.fetchDataByStatus(for: status)
-            action.value = Output(type: .delete, extraInformation: [KeywordArgument(key: "index", value: index)])
+            action.accept(Output(type: .delete, extraInformation: [KeywordArgument(key: "index", value: index)]))
             try delegate?.updateChild(newStatus, action: Output(type: .update))
         } catch(let error) {
             handle(error: error)

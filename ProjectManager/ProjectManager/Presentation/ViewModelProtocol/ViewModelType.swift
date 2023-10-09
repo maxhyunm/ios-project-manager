@@ -5,10 +5,12 @@
 //  Created by Max on 2023/09/24.
 //
 
+import RxCocoa
+
 protocol ViewModelTypeWithError {
     associatedtype ViewModelError
     
-    var error: Observable<ViewModelError?> { get set }
+    var error: BehaviorRelay<ViewModelError?> { get set }
 
     func handle(error: Error)
     func setError(_ error: ViewModelError)
@@ -25,7 +27,7 @@ protocol ToDoBaseViewModelInputsType {
 }
 
 protocol ToDoBaseViewModelOutputsType {
-    var error: Observable<CoreDataError?> { get set }
+    var error: BehaviorRelay<CoreDataError?> { get set }
 }
 
 protocol ToDoChildViewModelType {
@@ -39,9 +41,9 @@ protocol ToDoChildViewModelInputsType {
 }
 
 protocol ToDoChildViewModelOutputsType {
-    var action: Observable<Output?> { get }
+    var action: BehaviorRelay<Output?> { get }
     var entityList: [ToDo] { get }
-    var error: Observable<CoreDataError?> { get set }
+    var error: BehaviorRelay<CoreDataError?> { get set }
 }
 
 protocol ToDoChangeStatusViewModelType {
@@ -54,5 +56,5 @@ protocol ToDoChangeStatusViewModelInputsType {
 }
 
 protocol ToDoChangeStatusViewModelOutputsType {
-    var error: Observable<CoreDataError?> { get set }
+    var error: BehaviorRelay<CoreDataError?> { get set }
 }
