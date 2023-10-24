@@ -98,6 +98,15 @@ extension ToDoListChildViewController: UITableViewDelegate, UITableViewDataSourc
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let viewModelDelegate = self.viewModel as? ToDoListBaseViewModelDelegate else { return }
+        let detailVC = DetailViewController(viewModel.outputs.entityList[indexPath.row])
+        detailVC.viewModel = viewModelDelegate
+        let detailNavigation = UINavigationController(rootViewController: detailVC)
+        self.present(detailNavigation, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) ->
     UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: "") { (_, _, success: @escaping (Bool) -> Void) in

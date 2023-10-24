@@ -81,17 +81,11 @@ final class ToDoListBaseViewController: UIViewController {
     private func setupNavigationBar() {
         self.title = "Project Manager"
         let addToDo = UIAction(image: UIImage(systemName: "plus")) { [weak self] _ in
-#if DEBUG
-            let testValue: [KeywordArgument] = [
-                KeywordArgument(key: "id", value: UUID()),
-                KeywordArgument(key: "title", value: "추가 테스트"),
-                KeywordArgument(key: "body", value: "테스트용입니다"),
-                KeywordArgument(key: "dueDate", value: Date()),
-                KeywordArgument(key: "modifiedAt", value: Date()),
-                KeywordArgument(key: "status", value: ToDoStatus.toDo.rawValue)
-            ]
-            self?.viewModel.inputs.createData(values: testValue)
-#endif
+            guard let viewModelDelegate = self?.viewModel as? ToDoListBaseViewModelDelegate else { return }
+            let detailVC = DetailViewController()
+            detailVC.viewModel = viewModelDelegate
+            let detailNavigation = UINavigationController(rootViewController: detailVC)
+            self?.present(detailNavigation, animated: true)
         }
         navigationItem.rightBarButtonItem = UIBarButtonItem(primaryAction: addToDo)
     }

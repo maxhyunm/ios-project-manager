@@ -38,6 +38,7 @@
 		BAD472092AD3C7120021323A /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = BAD472082AD3C7120021323A /* RxRelay */; };
 		BAD4720B2AD3C7120021323A /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BAD4720A2AD3C7120021323A /* RxSwift */; };
 		BAD4721E2AD428740021323A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BAD4721D2AD428740021323A /* GoogleService-Info.plist */; };
+		BAD472F62AE780310021323A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD472F52AE780310021323A /* DetailViewController.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ToDoListBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ToDoListBaseViewController.swift */; };
@@ -81,6 +82,7 @@
 		BAD471EA2ACF2AF30021323A /* ChangeStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeStatusViewController.swift; sourceTree = "<group>"; };
 		BAD471EC2ACF2B080021323A /* PopOverButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverButton.swift; sourceTree = "<group>"; };
 		BAD4721D2AD428740021323A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BAD472F52AE780310021323A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		BA6463842AC2A3610080E80D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BAD472F42AE780160021323A /* DetailView */,
 				BA6463702AC04AAB0080E80D /* ListView */,
 			);
 			path = View;
@@ -247,6 +250,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BAD472F42AE780160021323A /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				BAD472F52AE780310021323A /* DetailViewController.swift */,
+			);
+			path = DetailView;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -369,6 +380,7 @@
 			files = (
 				BA64637F2AC283F70080E80D /* ToDoListChildViewModel.swift in Sources */,
 				BA6463812AC289680080E80D /* KeywordArgument.swift in Sources */,
+				BAD472F62AE780310021323A /* DetailViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ToDoListBaseViewController.swift in Sources */,
 				BA64637A2AC050AD0080E80D /* ToDoListTableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,

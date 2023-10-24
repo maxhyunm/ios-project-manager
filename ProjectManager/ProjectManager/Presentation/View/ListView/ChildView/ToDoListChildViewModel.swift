@@ -98,8 +98,8 @@ extension ToDoListChildViewModel {
             KeywordArgument(key: "status", value: status.rawValue)
         ]
         
-        delegate?.createData(values: values)
-        delegate?.createData(values: values2)
+        delegate?.touchUpDoneButton(nil, values: values)
+        delegate?.touchUpDoneButton(nil, values: values2)
     }
 }
 #endif

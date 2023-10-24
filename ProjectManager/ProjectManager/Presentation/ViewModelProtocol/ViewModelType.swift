@@ -23,7 +23,6 @@ protocol ToDoBaseViewModelType {
 
 protocol ToDoBaseViewModelInputsType {
     func addChild(_ status: ToDoStatus) -> ToDoListChildViewModel
-    func createData(values: [KeywordArgument])
 }
 
 protocol ToDoBaseViewModelOutputsType {

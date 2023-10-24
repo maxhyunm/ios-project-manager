@@ -54,10 +54,22 @@ extension ToDoListBaseViewModel: ToDoBaseViewModelInputsType {
 }
 
 extension ToDoListBaseViewModel {
-    func createData(values: [KeywordArgument]) {
+//    func createData(values: [KeywordArgument]) {
+//        do {
+//            try useCase.createData(values: values)
+//            try updateChild(.toDo, action: Output(type: .create))
+//        } catch(let error) {
+//            handle(error: error)
+//        }
+//    }
+    func touchUpDoneButton(_ entity: ToDo?, values: [KeywordArgument]) {
         do {
-            try useCase.createData(values: values)
-            try updateChild(.toDo, action: Output(type: .create))
+            guard let entity else {
+                try useCase.createData(values: values)
+                try updateChild(.toDo, action: Output(type: .create))
+                return
+            }
+            try useCase.updateData(entity, values: values)
         } catch(let error) {
             handle(error: error)
         }

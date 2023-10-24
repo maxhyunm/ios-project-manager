@@ -7,9 +7,7 @@
 
 protocol ToDoListBaseViewModelDelegate: AnyObject {
     func updateChild(_ status: ToDoStatus, action: Output) throws
-#if DEBUG
-    func createData(values: [KeywordArgument])
-#endif
+    func touchUpDoneButton(_ entity: ToDo?, values: [KeywordArgument])
 }
 
 protocol ToDoListChildViewModelDelegate: AnyObject {
