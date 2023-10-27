@@ -7,10 +7,11 @@
 
 import CoreData
 import RxSwift
+import RxCocoa
 
 final class BaseListViewModel: BaseViewModelType, BaseViewModelDelegate {
     private let useCase: ToDoUseCase
-    var entityList: [ToDoStatus: [ToDo]] = [:]
+    var totalEntityList: BehaviorRelay<[ToDoStatus: [ToDo]]> = BehaviorRelay(value: [:])
     var statusInAction: PublishSubject<(status: ToDoStatus, action: Output)> = PublishSubject()
     var inputs: BaseViewModelInputsType { return self }
     
@@ -27,7 +28,9 @@ extension BaseListViewModel: BaseViewModelInputsType {
 #if DEBUG
         do {
             try child.addTestData()
-            entityList[status] = try useCase.fetchDataByStatus(for: status)
+            var newEntityList = totalEntityList.value
+            newEntityList[status] = try useCase.fetchDataByStatus(for: status)
+            totalEntityList.accept(newEntityList)
             statusInAction.onNext((status: status, action: Output(type: .create)))
         } catch(let error) {
             statusInAction.onError(error)
@@ -39,7 +42,9 @@ extension BaseListViewModel: BaseViewModelInputsType {
 
 extension BaseListViewModel {
     func fetchData(for status: ToDoStatus) throws {
-        entityList[status] = try useCase.fetchDataByStatus(for: status)
+        var newEntityList = totalEntityList.value
+        newEntityList[status] = try useCase.fetchDataByStatus(for: status)
+        totalEntityList.accept(newEntityList)
     }
     
     func createData(values: [KeywordArgument], status: ToDoStatus = ToDoStatus.toDo) throws {

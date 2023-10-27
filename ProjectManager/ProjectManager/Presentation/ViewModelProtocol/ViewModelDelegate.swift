@@ -6,9 +6,10 @@
 //
 
 import RxSwift
+import RxCocoa
 
 protocol BaseViewModelDelegate: AnyObject {
-    var entityList: [ToDoStatus: [ToDo]] { get }
+    var totalEntityList: BehaviorRelay<[ToDoStatus: [ToDo]]> { get }
     var statusInAction: PublishSubject<(status: ToDoStatus, action: Output)> { get }
     func fetchData(for status: ToDoStatus) throws
     func createData(values: [KeywordArgument], status: ToDoStatus) throws

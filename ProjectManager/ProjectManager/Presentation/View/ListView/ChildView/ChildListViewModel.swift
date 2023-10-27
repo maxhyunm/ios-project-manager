@@ -64,8 +64,6 @@ extension ChildListViewModel {
                 onNext: { output in
                     do {
                         try delegate.fetchData(for: self.status)
-                        guard let newList = delegate.entityList[self.status] else { return }
-                        self.entityList = newList
                         self.action.onNext(output.action)
                     } catch(let error) {
                         self.action.onError(error)
@@ -75,6 +73,12 @@ extension ChildListViewModel {
                     self.action.onError(error)
                 })
             .disposed(by: disposeBag)
+        
+        delegate.totalEntityList.bind { totalList in
+            guard let newList = totalList[self.status] else { return }
+            self.entityList = newList
+        }
+        .disposed(by: disposeBag)
     }
 }
 
