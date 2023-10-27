@@ -6,54 +6,36 @@
 //
 
 import RxCocoa
+import RxSwift
 
-protocol ViewModelTypeWithError {
-    associatedtype ViewModelError
-    
-    var error: BehaviorRelay<ViewModelError?> { get set }
-
-    func handle(error: Error)
-    func setError(_ error: ViewModelError)
+protocol BaseViewModelType {
+    var inputs: BaseViewModelInputsType { get }
 }
 
-protocol ToDoBaseViewModelType {
-    var inputs: ToDoBaseViewModelInputsType { get }
-    var outputs: ToDoBaseViewModelOutputsType { get }
+protocol BaseViewModelInputsType {
+    func addChild(_ status: ToDoStatus) -> ChildListViewModel
 }
 
-protocol ToDoBaseViewModelInputsType {
-    func addChild(_ status: ToDoStatus) -> ToDoListChildViewModel
+protocol ChildViewModelType {
+    var inputs: ChildViewModelInputsType { get }
+    var outputs: ChildViewModelOutputsType { get }
+    var delegate: BaseViewModelDelegate? { get }
 }
 
-protocol ToDoBaseViewModelOutputsType {
-    var error: BehaviorRelay<CoreDataError?> { get set }
-}
-
-protocol ToDoChildViewModelType {
-    var inputs: ToDoChildViewModelInputsType { get }
-    var outputs: ToDoChildViewModelOutputsType { get }
-}
-
-protocol ToDoChildViewModelInputsType {
+protocol ChildViewModelInputsType {
     func viewWillAppear()
     func swipeToDelete(_ entity: ToDo)
 }
 
-protocol ToDoChildViewModelOutputsType {
-    var action: BehaviorRelay<Output?> { get }
+protocol ChildViewModelOutputsType {
+    var action: PublishSubject<Output> { get }
     var entityList: [ToDo] { get }
-    var error: BehaviorRelay<CoreDataError?> { get set }
 }
 
-protocol ToDoChangeStatusViewModelType {
-    var inputs: ToDoChangeStatusViewModelInputsType { get }
-    var outputs: ToDoChangeStatusViewModelOutputsType { get }
-}
-
-protocol ToDoChangeStatusViewModelInputsType {
+protocol ChangeStatusViewModelType {
     func touchUpButton(_ entity: ToDo, status: ToDoStatus)
 }
 
-protocol ToDoChangeStatusViewModelOutputsType {
-    var error: BehaviorRelay<CoreDataError?> { get set }
+protocol DetailViewModelType {
+    func touchUpDoneButton(_ entity: ToDo?, values: [KeywordArgument])
 }

@@ -6,10 +6,9 @@
 
 import UIKit
 import RxSwift
-import RxCocoa
 
-final class ToDoListBaseViewController: UIViewController {
-    private let viewModel: ToDoBaseViewModelType
+final class BaseListViewController: UIViewController {
+    private let viewModel: BaseViewModelType
     private let disposeBag = DisposeBag()
     
     private let stackView: UIStackView = {
@@ -29,7 +28,7 @@ final class ToDoListBaseViewController: UIViewController {
         return formatter
     }()
     
-    init(_ viewModel: ToDoBaseViewModelType) {
+    init(_ viewModel: BaseViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -44,13 +43,12 @@ final class ToDoListBaseViewController: UIViewController {
         addChildren()
         setupUI()
         setupNavigationBar()
-        setupBinding()
     }
     
     private func addChildren() {
         ToDoStatus.allCases.forEach { status in
             let childViewModel = viewModel.inputs.addChild(status)
-            let childViewController = ToDoListChildViewController(status,
+            let childViewController = ChildListViewController(status,
                                                               viewModel: childViewModel,
                                                               dateFormatter: dateFormatter)
             self.addChild(childViewController)
@@ -81,27 +79,15 @@ final class ToDoListBaseViewController: UIViewController {
     private func setupNavigationBar() {
         self.title = "Project Manager"
         let addToDo = UIAction(image: UIImage(systemName: "plus")) { [weak self] _ in
-            guard let viewModelDelegate = self?.viewModel as? ToDoListBaseViewModelDelegate else { return }
-            let detailVC = DetailViewController()
-            detailVC.viewModel = viewModelDelegate
-            let detailNavigation = UINavigationController(rootViewController: detailVC)
+            guard let viewModelDelegate = self?.viewModel as? BaseViewModelDelegate else { return }
+            let detailViewController = DetailViewController()
+            let detailViewModel = DetailViewModel()
+            detailViewModel.delegate = viewModelDelegate
+            detailViewController.viewModel = detailViewModel
+            let detailNavigation = UINavigationController(rootViewController: detailViewController)
             self?.present(detailNavigation, animated: true)
         }
         navigationItem.rightBarButtonItem = UIBarButtonItem(primaryAction: addToDo)
-    }
-    
-    private func setupBinding() {
-        viewModel.outputs.error.subscribe(on: MainScheduler.instance)
-            .bind { [weak self] error in
-            guard let self,
-                  let error else { return }
-            let alertBuilder = AlertBuilder(prefferedStyle: .alert)
-                .setTitle(error.alertTitle)
-                .setMessage(error.alertMessage)
-                .addAction(.confirm)
-                .build()
-            present(alertBuilder, animated: true)
-        }.disposed(by: disposeBag)
     }
 }
 

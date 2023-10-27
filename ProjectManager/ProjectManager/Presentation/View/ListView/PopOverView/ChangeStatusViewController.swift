@@ -2,7 +2,7 @@
 //  PopOverViewController.swift
 //  ProjectManager
 //
-//  Created by Min Hyun on 2023/10/06.
+//  Created by Max on 2023/10/06.
 //
 
 import UIKit
@@ -10,7 +10,7 @@ import UIKit
 class ChangeStatusViewController: UIViewController {
     let entity: ToDo
     let currentStatus: ToDoStatus
-    let viewModel: ToDoChangeStatusViewModelType
+    let viewModel: ChangeStatusViewModelType
     
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -21,7 +21,7 @@ class ChangeStatusViewController: UIViewController {
         return stackView
     }()
     
-    init(_ entity: ToDo, status: ToDoStatus, viewModel: ToDoChangeStatusViewModelType) {
+    init(_ entity: ToDo, status: ToDoStatus, viewModel: ChangeStatusViewModelType) {
         self.entity = entity
         self.viewModel = viewModel
         currentStatus = status
@@ -59,7 +59,7 @@ class ChangeStatusViewController: UIViewController {
     }
     
     @objc func moveStatus(_ sender: ChangeStatusButton) throws {
-        viewModel.inputs.touchUpButton(entity, status: sender.status)
+        viewModel.touchUpButton(entity, status: sender.status)
         self.dismiss(animated: true)
     }
 }

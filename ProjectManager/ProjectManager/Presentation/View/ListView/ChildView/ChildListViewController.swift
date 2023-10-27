@@ -7,12 +7,11 @@
 
 import UIKit
 import RxSwift
-import RxCocoa
 
-final class ToDoListChildViewController: UIViewController {
+final class ChildListViewController: UIViewController {
     private let status: ToDoStatus
-    private let headerView: ToDoListHeaderView
-    private let viewModel: ToDoChildViewModelType
+    private let headerView: ListHeaderView
+    private let viewModel: ChildViewModelType
     private let disposeBag = DisposeBag()
     
     let today = Date().timeIntervalSinceReferenceDate
@@ -26,9 +25,9 @@ final class ToDoListChildViewController: UIViewController {
         return tableView
     }()
     
-    init(_ status: ToDoStatus, viewModel: ToDoChildViewModelType, dateFormatter: DateFormatter) {
+    init(_ status: ToDoStatus, viewModel: ChildViewModelType, dateFormatter: DateFormatter) {
         self.status = status
-        self.headerView = ToDoListHeaderView(status)
+        self.headerView = ListHeaderView(status)
         self.dateFormatter = dateFormatter
         self.viewModel = viewModel
         
@@ -69,11 +68,11 @@ final class ToDoListChildViewController: UIViewController {
     private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(ToDoListTableViewCell.self, forCellReuseIdentifier: status.rawValue)
+        tableView.register(ListTableViewCell.self, forCellReuseIdentifier: status.rawValue)
     }
 }
 
-extension ToDoListChildViewController: UITableViewDelegate, UITableViewDataSource {
+extension ChildListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.outputs.entityList.count
     }
@@ -85,7 +84,7 @@ extension ToDoListChildViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: status.rawValue,
                                                        for: indexPath) as?
-                ToDoListTableViewCell else { return UITableViewCell() }
+                ListTableViewCell else { return UITableViewCell() }
         
         let toDoEntity = viewModel.outputs.entityList[indexPath.row]
         let isDone = toDoEntity.status == ToDoStatus.done.rawValue
@@ -99,12 +98,14 @@ extension ToDoListChildViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        guard let viewModelDelegate = self.viewModel as? ToDoListBaseViewModelDelegate else { return }
-        let detailVC = DetailViewController(viewModel.outputs.entityList[indexPath.row])
-        detailVC.viewModel = viewModelDelegate
-        let detailNavigation = UINavigationController(rootViewController: detailVC)
+        let detailViewController = DetailViewController(viewModel.outputs.entityList[indexPath.row])
+        let detailViewModel = DetailViewModel()
+        detailViewModel.delegate = self.viewModel.delegate
+        detailViewController.viewModel = detailViewModel
+        let detailNavigation = UINavigationController(rootViewController: detailViewController)
         self.present(detailNavigation, animated: true)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) ->
@@ -121,13 +122,11 @@ extension ToDoListChildViewController: UITableViewDelegate, UITableViewDataSourc
     }
 }
 
-extension ToDoListChildViewController {
+extension ChildListViewController {
     private func setupBinding() {
         viewModel.outputs.action.subscribe(on: MainScheduler.instance)
-            .bind { [weak self] action in
-                guard let self,
-                      let action else { return }
-                
+            .subscribe(onNext: { [weak self] action in
+                guard let self else { return }
                 switch action.type {
                 case .create:
                     let index = self.viewModel.outputs.entityList.count - 1
@@ -141,28 +140,25 @@ extension ToDoListChildViewController {
                 }
                 
                 self.headerView.setupTotalCount(viewModel.outputs.entityList.count)
-            }.disposed(by: disposeBag)
-        
-        viewModel.outputs.error.subscribe(on: MainScheduler.instance)
-            .bind { [weak self] error in
-                guard let self,
-                      let error else { return }
+            }, onError: { [weak self] error in
+                let errorType = CoreDataError.downcastError(error)
+                
                 let alertBuilder = AlertBuilder(prefferedStyle: .alert)
-                    .setTitle(error.alertTitle)
-                    .setMessage(error.alertMessage)
+                    .setTitle(errorType.alertTitle)
+                    .setMessage(errorType.alertMessage)
                     .addAction(.confirm)
                     .build()
-                present(alertBuilder, animated: true)
-            }.disposed(by: disposeBag)
+                self?.present(alertBuilder, animated: true)
+            }).disposed(by: disposeBag)
     }
 }
 
-extension ToDoListChildViewController {
+extension ChildListViewController {
     @objc private func longPressEvent(sender: UILongPressGestureRecognizer) {
         let point = sender.location(in: tableView)
         
         guard let indexPath = self.tableView.indexPathForRow(at: point),
-              let viewModelDelegate = viewModel as? ToDoListChildViewModelDelegate else { return }
+              let viewModelDelegate = viewModel as? ChildViewModelDelegate else { return }
         let entity = viewModel.outputs.entityList[indexPath.row]
         let changeStatusViewModel = ChangeStatusViewModel()
         changeStatusViewModel.delegate = viewModelDelegate

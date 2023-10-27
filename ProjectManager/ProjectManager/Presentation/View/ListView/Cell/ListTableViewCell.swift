@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ToDoListTableViewCell: UITableViewCell {
+final class ListTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false

@@ -33,5 +33,12 @@ enum CoreDataError: Error {
             return "알 수 없는 오류입니다"
         }
     }
+    
+    static func downcastError(_ error: Error) -> CoreDataError {
+        guard let downcasted = error as? CoreDataError else {
+            return CoreDataError.unknown
+        }
+        return downcasted
+    }
 }
 

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ToDoListHeaderView: UIView {
+final class ListHeaderView: UIView {
     private let status: ToDoStatus
     
     private let headerTitleLabel: UILabel = {
@@ -24,9 +24,11 @@ final class ToDoListHeaderView: UIView {
         label.font = .preferredFont(forTextStyle: .callout)
         label.backgroundColor = .black
         label.textColor = .white
+        label.textAlignment = .center
         label.clipsToBounds = true
-        label.layer.cornerRadius = 5
+        label.layer.cornerRadius = 10
         label.layer.masksToBounds = true
+        label.widthAnchor.constraint(equalTo: label.heightAnchor).isActive = true
         
         return label
     }()
