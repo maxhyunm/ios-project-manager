@@ -11,7 +11,6 @@ import CoreData
 
 
 extension ToDo {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ToDo> {
         return NSFetchRequest<ToDo>(entityName: "ToDo")
     }
@@ -21,6 +20,8 @@ extension ToDo {
     @NSManaged public var body: String
     @NSManaged public var modifiedAt: Date
     @NSManaged public var status: String
+    @NSManaged public var uploadedAt: Date?
+    @NSManaged public var willBeDeleted: Bool
 
 }
 

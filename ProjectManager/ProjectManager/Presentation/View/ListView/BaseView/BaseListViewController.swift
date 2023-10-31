@@ -42,7 +42,25 @@ final class BaseListViewController: UIViewController {
         view.backgroundColor = .systemBackground
         addChildren()
         setupUI()
+        bindConnection()
         setupNavigationBar()
+    }
+    
+    private func bindConnection() {
+        NetworkMonitor.shared.isConnected
+            .observe(on: MainScheduler.instance)
+            .bind { [weak self] isNetworkAvailable in
+                if isNetworkAvailable {
+                    let connectionIcon = UIAction(title: "ONLINE", image: UIImage(systemName: "powerplug.fill")) { _ in }
+                    connectionIcon.image?.withTintColor(.systemGreen)
+                    self?.navigationItem.leftBarButtonItem = UIBarButtonItem(primaryAction: connectionIcon)
+                } else {
+                    let connectionIcon = UIAction(title: "OFFLINE", image: UIImage(systemName: "powerplug")) { _ in }
+                    connectionIcon.image?.withTintColor(.systemRed)
+                    self?.navigationItem.leftBarButtonItem = UIBarButtonItem(primaryAction: connectionIcon)
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     private func addChildren() {
@@ -65,9 +83,9 @@ final class BaseListViewController: UIViewController {
         let safeArea = view.safeAreaLayoutGuide
         view.backgroundColor = .systemBackground
         stackView.backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
-
+        
         view.addSubview(stackView)
-
+        
         NSLayoutConstraint.activate([
             stackView.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
             stackView.heightAnchor.constraint(equalTo: safeArea.heightAnchor),

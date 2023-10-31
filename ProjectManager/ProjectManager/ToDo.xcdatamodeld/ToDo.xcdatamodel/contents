@@ -7,5 +7,7 @@
         <attribute name="modifiedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="status" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
+        <attribute name="uploadedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="willBeDeleted" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
 </model>

@@ -141,7 +141,7 @@ extension ChildListViewController {
                 
                 self.headerView.setupTotalCount(viewModel.outputs.entityList.count)
             }, onError: { [weak self] error in
-                let errorType = CoreDataError.downcastError(error)
+                let errorType = ProjectManagerError.downcastError(error)
                 
                 let alertBuilder = AlertBuilder(prefferedStyle: .alert)
                     .setTitle(errorType.alertTitle)

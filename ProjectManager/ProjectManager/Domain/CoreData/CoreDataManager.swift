@@ -27,7 +27,7 @@ struct CoreDataManager {
             let entities: [NSManagedObject] = try persistentContainer.viewContext.fetch(request)
             return entities
         } catch {
-            throw CoreDataError.dataNotFound
+            throw ProjectManagerError.dataNotFound
         }
     }
     
@@ -48,6 +48,15 @@ struct CoreDataManager {
         persistentContainer.viewContext.delete(entity)
         try saveContext()
     }
-
-    func saveContext() throws {}
+    
+    func saveContext() throws {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                throw ProjectManagerError.saveFailure
+            }
+        }
+    }
 }

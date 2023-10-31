@@ -9,18 +9,18 @@ import CoreData
 import RxSwift
 
 struct ToDoUseCase {
-    private let coreDataManager: CoreDataManager
+    private let dataSyncManager: DataSyncManager
     
-    init(dataManager: CoreDataManager) {
-        coreDataManager = dataManager
+    init(dataManager: DataSyncManager) {
+        dataSyncManager = dataManager
     }
-
+    
     func fetchDataByStatus(for status: ToDoStatus) throws -> [ToDo] {
-        let predicated = NSPredicate(format: "status == %@", status.rawValue)
-        let filtered = try coreDataManager.fetchData(entityName:"ToDo", predicate: predicated, sort: "modifiedAt")
+        let predicated = NSPredicate(format: "status == %@ AND willBeDeleted == %d", status.rawValue, false)
+        let filtered = try dataSyncManager.coreDataManager.fetchData(entityName:"ToDo", predicate: predicated, sort: "modifiedAt")
         
         guard let result = filtered as? [ToDo] else {
-            throw CoreDataError.unknown
+            throw ProjectManagerError.unknown
         }
         return result
     }
@@ -39,7 +39,15 @@ struct ToDoUseCase {
         if values.filter({ $0.key == "status" }).isEmpty {
             values.append(KeywordArgument(key: "status", value: ToDoStatus.toDo.rawValue))
         }
-        try coreDataManager.createData(type: ToDo.self, values: values)
+        
+        if values.filter({ $0.key == "willBeDeleted"}).isEmpty {
+            values.append(KeywordArgument(key: "willBeDeleted", value: false))
+        }
+        try dataSyncManager.coreDataManager.createData(type: ToDo.self, values: values)
+        
+        if NetworkMonitor.shared.isConnected.value {
+            dataSyncManager.syncCoreDataWithFirebase()
+        }
     }
     
     func updateData(_ entity: ToDo, values: [KeywordArgument]) throws {
@@ -47,10 +55,16 @@ struct ToDoUseCase {
         if values.filter({ $0.key == "modifiedAt" }).isEmpty {
             values.append(KeywordArgument(key: "modifiedAt", value: Date()))
         }
-        try coreDataManager.updateData(entity: entity, values: values)
+        try dataSyncManager.coreDataManager.updateData(entity: entity, values: values)
+        if NetworkMonitor.shared.isConnected.value {
+            dataSyncManager.syncCoreDataWithFirebase()
+        }
     }
     
     func deleteData(_ entity: ToDo) throws {
-        try coreDataManager.deleteData(entity: entity)
+        try dataSyncManager.coreDataManager.updateData(entity: entity, values: [KeywordArgument(key: "willBeDeleted", value: true)])
+        if NetworkMonitor.shared.isConnected.value {
+            dataSyncManager.syncCoreDataWithFirebase()
+        }
     }
 }

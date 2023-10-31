@@ -25,17 +25,6 @@ extension BaseListViewModel: BaseViewModelInputsType {
         let child = ChildListViewModel(status: status)
         child.delegate = self
         child.bindData()
-#if DEBUG
-        do {
-            try child.addTestData()
-            var newEntityList = totalEntityList.value
-            newEntityList[status] = try useCase.fetchDataByStatus(for: status)
-            totalEntityList.accept(newEntityList)
-            statusInAction.onNext((status: status, action: Output(type: .create)))
-        } catch(let error) {
-            statusInAction.onError(error)
-        }
-#endif
         return child
     }
 }

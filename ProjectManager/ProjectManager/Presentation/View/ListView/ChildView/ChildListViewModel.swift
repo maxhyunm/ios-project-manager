@@ -82,29 +82,4 @@ extension ChildListViewModel {
     }
 }
 
-#if DEBUG
-extension ChildListViewModel {
-    func addTestData() throws {
-        let values: [KeywordArgument] = [
-            KeywordArgument(key: "id", value: UUID()),
-            KeywordArgument(key: "title", value: "\(status.rawValue) 테스트1"),
-            KeywordArgument(key: "body", value: "테스트용입니다"),
-            KeywordArgument(key: "dueDate", value: Date()),
-            KeywordArgument(key: "modifiedAt", value: Date()),
-            KeywordArgument(key: "status", value: status.rawValue)
-        ]
 
-        let values2: [KeywordArgument] = [
-            KeywordArgument(key: "id", value: UUID()),
-            KeywordArgument(key: "title", value: "\(status.rawValue) 테스트2"),
-            KeywordArgument(key: "body", value: "테스트용입니다2"),
-            KeywordArgument(key: "dueDate", value: Date()),
-            KeywordArgument(key: "modifiedAt", value: Date()),
-            KeywordArgument(key: "status", value: status.rawValue)
-        ]
-
-        try delegate?.createData(values: values, status: status)
-        try delegate?.createData(values: values2, status: status)
-    }
-}
-#endif
