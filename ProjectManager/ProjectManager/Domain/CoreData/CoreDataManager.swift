@@ -7,14 +7,18 @@
 
 import CoreData
 
-struct CoreDataManager {
-    let persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "ToDo")
-        container.loadPersistentStores(completionHandler: { (_, _) in })
-        return container
-    }()
+struct CoreDataManager<T: NSManagedObject> {
+    let persistentContainer: NSPersistentContainer
+    
+    init(containerName: String) {
+        persistentContainer = {
+            let container = NSPersistentContainer(name: containerName)
+            container.loadPersistentStores(completionHandler: { (_, _) in })
+            return container
+        }()
+    }
 
-    func fetchData(entityName: String, predicate: NSPredicate? = nil, sort: String? = nil) throws -> [NSManagedObject] {
+    func fetchData(entityName: String, predicate: NSPredicate? = nil, sort: String? = nil) throws -> [T] {
         let request: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: entityName)
         if let predicate {
             request.predicate = predicate
@@ -25,26 +29,29 @@ struct CoreDataManager {
         }
         do {
             let entities: [NSManagedObject] = try persistentContainer.viewContext.fetch(request)
-            return entities
+            guard let result = entities as? [T] else {
+                throw ProjectManagerError.unknown
+            }
+            return result
         } catch {
             throw ProjectManagerError.dataNotFound
         }
     }
     
     @discardableResult
-    func createData<T: NSManagedObject>(type: T.Type, values: [KeywordArgument]) throws -> T {
+    func createData(values: [KeywordArgument]) throws -> T {
         let newData = T(context: persistentContainer.viewContext)
         return try updateData(entity: newData, values: values)
     }
     
     @discardableResult
-    func updateData<T: NSManagedObject>(entity: T, values: [KeywordArgument]) throws -> T  {
+    func updateData(entity: T, values: [KeywordArgument]) throws -> T  {
         values.forEach { entity.setValue($0.value, forKey: $0.key) }
         try saveContext()
         return entity
     }
     
-    func deleteData<T: NSManagedObject>(entity: T) throws {
+    func deleteData(entity: T) throws {
         persistentContainer.viewContext.delete(entity)
         try saveContext()
     }

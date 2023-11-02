@@ -8,24 +8,21 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    let dataSyncManager = DataSyncManager()
+    let settingManager = SettingManager()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        dataSyncManager.syncCoreDataWithFirebase()
-        dataSyncManager.firebaseManager.loadData()
-        let useCase = ToDoUseCase(dataManager: dataSyncManager)
-        let toDoViewModel = BaseListViewModel(useCase: useCase)
+        let toDoViewModel = BaseListViewModel(useCase: settingManager.useCase)
         let baseViewController = BaseListViewController(toDoViewModel)
         let navigationViewController = UINavigationController(rootViewController: baseViewController)
+        toDoViewModel.syncData()
         window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        dataSyncManager.syncCoreDataWithFirebase()
-//        NetworkMonitor.shared.stop()
+        NetworkMonitor.shared.stop()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

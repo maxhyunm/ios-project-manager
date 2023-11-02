@@ -10,13 +10,12 @@ import RxCocoa
 
 protocol BaseViewModelDelegate: AnyObject {
     var totalEntityList: BehaviorRelay<[ToDoStatus: [ToDo]]> { get }
-    var statusInAction: PublishSubject<(status: ToDoStatus, action: Output)> { get }
-    func fetchData(for status: ToDoStatus) throws
-    func createData(values: [KeywordArgument], status: ToDoStatus) throws
-    func readData(for status: ToDoStatus) throws
-    func updateData(_ entity: ToDo, values: [KeywordArgument]) throws
-    func changeStatus(_ entity: ToDo, to newStatus: ToDoStatus, index: Int) throws
-    func deleteData(_ entity: ToDo, index: Int) throws
+    func fetchData(for status: ToDoStatus)
+    func createData(values: [KeywordArgument], status: ToDoStatus)
+    func readData(for status: ToDoStatus)
+    func updateData(_ entity: ToDo, values: [KeywordArgument])
+    func changeStatus(_ entity: ToDo, to newStatus: ToDoStatus, index: Int)
+    func deleteData(_ entity: ToDo, index: Int) 
 }
 
 protocol ChildViewModelDelegate: AnyObject {

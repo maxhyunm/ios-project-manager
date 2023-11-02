@@ -9,7 +9,7 @@ import CoreData
 import RxSwift
 
 struct ToDoUseCase {
-    private let dataSyncManager: DataSyncManager
+    let dataSyncManager: DataSyncManager
     
     init(dataManager: DataSyncManager) {
         dataSyncManager = dataManager
@@ -17,11 +17,8 @@ struct ToDoUseCase {
     
     func fetchDataByStatus(for status: ToDoStatus) throws -> [ToDo] {
         let predicated = NSPredicate(format: "status == %@ AND willBeDeleted == %d", status.rawValue, false)
-        let filtered = try dataSyncManager.coreDataManager.fetchData(entityName:"ToDo", predicate: predicated, sort: "modifiedAt")
-        
-        guard let result = filtered as? [ToDo] else {
-            throw ProjectManagerError.unknown
-        }
+        let result = try dataSyncManager.coreDataManager.fetchData(entityName:"ToDo", predicate: predicated, sort: "modifiedAt")
+
         return result
     }
     
@@ -43,10 +40,10 @@ struct ToDoUseCase {
         if values.filter({ $0.key == "willBeDeleted"}).isEmpty {
             values.append(KeywordArgument(key: "willBeDeleted", value: false))
         }
-        try dataSyncManager.coreDataManager.createData(type: ToDo.self, values: values)
+        let entity = try dataSyncManager.coreDataManager.createData(values: values)
         
         if NetworkMonitor.shared.isConnected.value {
-            dataSyncManager.syncCoreDataWithFirebase()
+            try dataSyncManager.mergeSingleLocalDataToRemote(entity, uploadedAt: Date())
         }
     }
     
@@ -57,14 +54,19 @@ struct ToDoUseCase {
         }
         try dataSyncManager.coreDataManager.updateData(entity: entity, values: values)
         if NetworkMonitor.shared.isConnected.value {
-            dataSyncManager.syncCoreDataWithFirebase()
+            try dataSyncManager.mergeSingleLocalDataToRemote(entity, uploadedAt: Date())
         }
     }
     
     func deleteData(_ entity: ToDo) throws {
-        try dataSyncManager.coreDataManager.updateData(entity: entity, values: [KeywordArgument(key: "willBeDeleted", value: true)])
+        try dataSyncManager.coreDataManager.updateData(entity: entity,
+                                                       values: [KeywordArgument(key: "willBeDeleted", value: true)])
         if NetworkMonitor.shared.isConnected.value {
-            dataSyncManager.syncCoreDataWithFirebase()
+            try dataSyncManager.deleteSingleData(entity)
         }
+    }
+    
+    func syncData(handler: @escaping (Error) -> Void) {
+        dataSyncManager.syncLocalWithRemote() { handler($0) }
     }
 }

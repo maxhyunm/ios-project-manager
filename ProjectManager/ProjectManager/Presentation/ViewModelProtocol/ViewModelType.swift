@@ -10,6 +10,7 @@ import RxSwift
 
 protocol BaseViewModelType {
     var inputs: BaseViewModelInputsType { get }
+    var errorMessage: PublishRelay<String> { get }
 }
 
 protocol BaseViewModelInputsType {
@@ -28,7 +29,7 @@ protocol ChildViewModelInputsType {
 }
 
 protocol ChildViewModelOutputsType {
-    var action: PublishSubject<Output> { get }
+    var action: PublishRelay<Output> { get }
     var entityList: [ToDo] { get }
 }
 

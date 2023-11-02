@@ -8,31 +8,40 @@
 import FirebaseDatabase
 import RxSwift
 
-struct FirebaseManager {
-    let firebaseDB: DatabaseReference = Database.database().reference().child("ToDo")
-    var entityList = BehaviorSubject<[ToDoDTO]>(value: [])
+final class FirebaseManager<T: Decodable> {
+    let firebaseDB: DatabaseReference
     
-    func loadData() {
+    init(name: String) {
+        firebaseDB = Database.database().reference().child(name)
+    }
+    
+    func loadData(handler: @escaping (Result<[T], Error>) -> Void) {
         firebaseDB.getData { error, snapshot in
+            if let error {
+                handler(.failure(error))
+                return
+            }
+            
             guard let snapshot,
-                  let data = snapshot.value as? [String: Any] else { return }
+                  let data = snapshot.value as? [String: Any] else {
+                handler(.failure(ProjectManagerError.dataNotFound))
+                return
+            }
+            
             let reducedData = data.reduce(into: []) { $0.append($1.value) }
             
             do {
                 let json = try JSONSerialization.data(withJSONObject: reducedData)
-                let dto = try JSONDecoder().decode([ToDoDTO].self, from: json)
-                entityList.onNext(dto)
+                let dto = try JSONDecoder().decode([T].self, from: json)
+                handler(.success(dto))
+                
             } catch(let error) {
-                entityList.onError(error)
+                handler(.failure(error))
             }
         }
     }
     
-    func createData(id: String, values: [String: Any]) {
-        firebaseDB.child(id).setValue(values)
-    }
-    
-    func updateData(id: String, values: [String: Any]) {
+    func changeData(id: String, values: [String: Any]) {
         firebaseDB.updateChildValues([id: values])
     }
     

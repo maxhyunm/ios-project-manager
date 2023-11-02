@@ -9,14 +9,10 @@ final class DetailViewModel: DetailViewModelType {
     weak var delegate: BaseViewModelDelegate?
     
     func touchUpDoneButton(_ entity: ToDo?, values: [KeywordArgument]) {
-        do {
-            guard let entity else {
-                try delegate?.createData(values: values, status: ToDoStatus.toDo)
-                return
-            }
-            try delegate?.updateData(entity, values: values)
-        } catch(let error) {
-            delegate?.statusInAction.onError(error)
+        guard let entity else {
+            delegate?.createData(values: values, status: ToDoStatus.toDo)
+            return
         }
+        delegate?.updateData(entity, values: values)
     }
 }

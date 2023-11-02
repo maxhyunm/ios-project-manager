@@ -31,6 +31,7 @@
 		BA73DD7D2AF1254900EB13F4 /* DataSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD7C2AF1254900EB13F4 /* DataSyncManager.swift */; };
 		BA73DD7F2AF12B8400EB13F4 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD7E2AF12B8400EB13F4 /* NetworkMonitor.swift */; };
 		BA73DD812AF137D300EB13F4 /* ToDoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD802AF137D300EB13F4 /* ToDoDTO.swift */; };
+		BA73DD852AF395AF00EB13F4 /* SettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD842AF395AF00EB13F4 /* SettingManager.swift */; };
 		BAD471D62ACBA2CB0021323A /* ViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471D52ACBA2CB0021323A /* ViewModelDelegate.swift */; };
 		BAD471D82ACBA4820021323A /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471D72ACBA4820021323A /* Output.swift */; };
 		BAD471DF2ACF19EA0021323A /* ToDoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471DE2ACF19EA0021323A /* ToDoUseCase.swift */; };
@@ -84,6 +85,7 @@
 		BA73DD7C2AF1254900EB13F4 /* DataSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSyncManager.swift; sourceTree = "<group>"; };
 		BA73DD7E2AF12B8400EB13F4 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		BA73DD802AF137D300EB13F4 /* ToDoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDTO.swift; sourceTree = "<group>"; };
+		BA73DD842AF395AF00EB13F4 /* SettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingManager.swift; sourceTree = "<group>"; };
 		BAD471D52ACBA2CB0021323A /* ViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDelegate.swift; sourceTree = "<group>"; };
 		BAD471D72ACBA4820021323A /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
 		BAD471DE2ACF19EA0021323A /* ToDoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoUseCase.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				BA73DD822AF1382B00EB13F4 /* CoreData */,
 				BA73DD7C2AF1254900EB13F4 /* DataSyncManager.swift */,
 				BAD471DE2ACF19EA0021323A /* ToDoUseCase.swift */,
+				BA73DD842AF395AF00EB13F4 /* SettingManager.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				BA64635F2AC043680080E80D /* ToDo+CoreDataClass.swift in Sources */,
 				BAD471EB2ACF2AF30021323A /* ChangeStatusViewController.swift in Sources */,
 				BA6463642AC043F50080E80D /* CoreDataManager.swift in Sources */,
+				BA73DD852AF395AF00EB13F4 /* SettingManager.swift in Sources */,
 				BAD471ED2ACF2B080021323A /* PopOverButton.swift in Sources */,
 				BA64637D2AC26F490080E80D /* ChildListViewController.swift in Sources */,
 				BA6463582AC042A90080E80D /* ToDo.xcdatamodeld in Sources */,
