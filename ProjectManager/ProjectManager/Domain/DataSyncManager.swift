@@ -6,16 +6,19 @@
 //
 
 import Foundation
+import CoreData
 import RxSwift
 import RxCocoa
 
-struct DataSyncManager {
-    let coreDataManager: CoreDataManager<ToDo>
-    let firebaseManager: FirebaseManager<ToDoDTO>
+struct DataSyncManager<Local: LocalType, Remote: RemoteType> {
+    let coreDataManager: CoreDataManager<Local>
+    let firebaseManager: FirebaseManager<Remote>
+    let name: String
     
-    init(coreDataManager: CoreDataManager<ToDo>, firebaseManager: FirebaseManager<ToDoDTO>) {
+    init(coreDataManager: CoreDataManager<Local>, firebaseManager: FirebaseManager<Remote>, name: String) {
         self.coreDataManager = coreDataManager
         self.firebaseManager = firebaseManager
+        self.name = name
     }
     
     func syncLocalWithRemote(errorHandler: @escaping (Error) -> Void) {
@@ -34,13 +37,12 @@ struct DataSyncManager {
             switch result {
             case .success(let data):
                 do {
-                    let localEntities = try coreDataManager.fetchData(entityName:"ToDo")
+                    let localEntities = try coreDataManager.fetchData(entityName: name)
                     let localIdList: [UUID] = localEntities.map { $0.id }
                     let remoteList = data.filter { !localIdList.contains($0.id) }
                     
                     try remoteList.forEach { entity in
-                        let newItem = makeDTOKeywordArguments(for: entity)
-                        try coreDataManager.createData(values: newItem)
+                        try coreDataManager.createData(values: entity.makeAttributeKeywordArguments())
                     }
                 } catch(let error) {
                     errorHandler(error)
@@ -51,18 +53,17 @@ struct DataSyncManager {
         }
     }
     
-    func mergeSingleLocalDataToRemote(_ entity: ToDo, uploadedAt: Date) throws {
+    func mergeSingleLocalDataToRemote(_ entity: Local, uploadedAt: Date) throws {
         let values = [KeywordArgument(key: "uploadedAt", value: uploadedAt)]
         try coreDataManager.updateData(entity: entity, values: values)
-        let data: [String: Any] = makeEntityDictionary(for: entity)
-        firebaseManager.changeData(id: entity.id.uuidString, values: data)
+        firebaseManager.changeData(id: entity.id.uuidString, values: entity.makeAttributeDictionary())
     }
 
     private func mergeLocalDataToRemote(for type: MergeType) throws {
         let onCondition = NSPredicate(format: type.predicateCondition)
         let notDeleted = NSPredicate(format: "willBeDeleted == %d", false)
         let predicated = NSCompoundPredicate.init(type: .and, subpredicates: [onCondition, notDeleted])
-        let result = try coreDataManager.fetchData(entityName:"ToDo", predicate: predicated)
+        let result = try coreDataManager.fetchData(entityName: name, predicate: predicated)
         let uploadedAt = Date()
         
         try result.forEach { entity in
@@ -70,45 +71,18 @@ struct DataSyncManager {
         }
     }
     
-    func deleteSingleData(_ entity: ToDo) throws {
+    func deleteSingleData(_ entity: Local) throws {
         firebaseManager.deleteData(id: entity.id.uuidString)
         try coreDataManager.deleteData(entity: entity)
     }
     
     private func deleteData() throws {
         let predicated = NSPredicate(format: "willBeDeleted == %d", true)
-        let result = try coreDataManager.fetchData(entityName:"ToDo", predicate: predicated)
+        let result = try coreDataManager.fetchData(entityName: name, predicate: predicated)
 
         try result.forEach { entity in
             try deleteSingleData(entity)
         }
-    }
-}
-
-extension DataSyncManager {
-    private func makeDTOKeywordArguments(for entity: ToDoDTO) -> [KeywordArgument] {
-        return [KeywordArgument(key: "id", value: entity.id),
-                KeywordArgument(key: "title", value: entity.title),
-                KeywordArgument(key: "dueDate", value: entity.dueDate),
-                KeywordArgument(key: "body", value: entity.body),
-                KeywordArgument(key: "modifiedAt", value: entity.modifiedAt),
-                KeywordArgument(key: "status", value: entity.status),
-                KeywordArgument(key: "uploadedAt", value: entity.uploadedAt),
-                KeywordArgument(key: "willBeDeleted", value: entity.willBeDeleted)]
-    }
-    
-    private func makeEntityDictionary(for entity: ToDo) -> [String: Any] {
-        guard let uploadedAt = entity.uploadedAt else { return [:] }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return ["id": entity.id.uuidString,
-                "title": entity.title,
-                "dueDate": dateFormatter.string(from: entity.dueDate),
-                "body" : entity.body,
-                "modifiedAt": dateFormatter.string(from: entity.modifiedAt),
-                "status": entity.status,
-                "uploadedAt": dateFormatter.string(from: uploadedAt),
-                "willBeDeleted": entity.willBeDeleted]
     }
 }
 

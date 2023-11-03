@@ -15,13 +15,14 @@ final class NetworkMonitor {
     private let queue = DispatchQueue.global()
     private(set) var isConnected = BehaviorRelay<Bool>(value: false)
     
-    private init() {}
-    
-    public func start() {
-        monitor.start(queue: queue)
+    private init() {
         monitor.pathUpdateHandler = { path in
             self.isConnected.accept(path.status == .satisfied)
         }
+    }
+    
+    public func start() {
+        monitor.start(queue: queue)
     }
     
     public func stop() {

@@ -8,7 +8,7 @@
 import FirebaseDatabase
 import RxSwift
 
-final class FirebaseManager<T: Decodable> {
+final class FirebaseManager<T: RemoteType> {
     let firebaseDB: DatabaseReference
     
     init(name: String) {

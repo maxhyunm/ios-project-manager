@@ -10,11 +10,16 @@ import RxSwift
 
 protocol BaseViewModelType {
     var inputs: BaseViewModelInputsType { get }
-    var errorMessage: PublishRelay<String> { get }
+    var outputs: BaseViewModelOutputsType { get }
+    var historyUseCase: HistoryUseCase { get }
 }
 
 protocol BaseViewModelInputsType {
     func addChild(_ status: ToDoStatus) -> ChildListViewModel
+}
+
+protocol BaseViewModelOutputsType {
+    var errorMessage: PublishRelay<String> { get }
 }
 
 protocol ChildViewModelType {

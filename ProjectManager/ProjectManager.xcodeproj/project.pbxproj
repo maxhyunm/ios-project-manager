@@ -31,13 +31,22 @@
 		BA73DD7D2AF1254900EB13F4 /* DataSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD7C2AF1254900EB13F4 /* DataSyncManager.swift */; };
 		BA73DD7F2AF12B8400EB13F4 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD7E2AF12B8400EB13F4 /* NetworkMonitor.swift */; };
 		BA73DD812AF137D300EB13F4 /* ToDoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD802AF137D300EB13F4 /* ToDoDTO.swift */; };
-		BA73DD852AF395AF00EB13F4 /* SettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD842AF395AF00EB13F4 /* SettingManager.swift */; };
+		BA73DD872AF3B9E100EB13F4 /* NavigationTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD862AF3B9E100EB13F4 /* NavigationTitleView.swift */; };
+		BA73DD8E2AF3C3FA00EB13F4 /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD8C2AF3C3FA00EB13F4 /* History+CoreDataClass.swift */; };
+		BA73DD8F2AF3C3FA00EB13F4 /* History+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD8D2AF3C3FA00EB13F4 /* History+CoreDataProperties.swift */; };
+		BA73DD952AF3FF9300EB13F4 /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD942AF3FF9300EB13F4 /* DataType.swift */; };
+		BA73DD992AF40AFC00EB13F4 /* HistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD982AF40AFC00EB13F4 /* HistoryUseCase.swift */; };
+		BA73DD9B2AF40B1B00EB13F4 /* HistoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD9A2AF40B1B00EB13F4 /* HistoryDTO.swift */; };
+		BA73DD9F2AF4116A00EB13F4 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD9E2AF4116A00EB13F4 /* DataManager.swift */; };
+		BA73DDA72AF48AE800EB13F4 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DDA62AF48AE800EB13F4 /* HistoryViewController.swift */; };
+		BA73DDA92AF48C6100EB13F4 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DDA82AF48C6100EB13F4 /* HistoryViewModel.swift */; };
+		BA73DDAC2AF48D6D00EB13F4 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DDAB2AF48D6D00EB13F4 /* HistoryTableViewCell.swift */; };
 		BAD471D62ACBA2CB0021323A /* ViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471D52ACBA2CB0021323A /* ViewModelDelegate.swift */; };
 		BAD471D82ACBA4820021323A /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471D72ACBA4820021323A /* Output.swift */; };
 		BAD471DF2ACF19EA0021323A /* ToDoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471DE2ACF19EA0021323A /* ToDoUseCase.swift */; };
 		BAD471E62ACF2AC90021323A /* ChangeStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471E52ACF2AC90021323A /* ChangeStatusViewModel.swift */; };
 		BAD471EB2ACF2AF30021323A /* ChangeStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471EA2ACF2AF30021323A /* ChangeStatusViewController.swift */; };
-		BAD471ED2ACF2B080021323A /* PopOverButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471EC2ACF2B080021323A /* PopOverButton.swift */; };
+		BAD471ED2ACF2B080021323A /* ChangeStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471EC2ACF2B080021323A /* ChangeStatusButton.swift */; };
 		BAD472052AD3C7120021323A /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = BAD472042AD3C7120021323A /* RxBlocking */; };
 		BAD472072AD3C7120021323A /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = BAD472062AD3C7120021323A /* RxCocoa */; };
 		BAD472092AD3C7120021323A /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = BAD472082AD3C7120021323A /* RxRelay */; };
@@ -85,13 +94,22 @@
 		BA73DD7C2AF1254900EB13F4 /* DataSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSyncManager.swift; sourceTree = "<group>"; };
 		BA73DD7E2AF12B8400EB13F4 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		BA73DD802AF137D300EB13F4 /* ToDoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDTO.swift; sourceTree = "<group>"; };
-		BA73DD842AF395AF00EB13F4 /* SettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingManager.swift; sourceTree = "<group>"; };
+		BA73DD862AF3B9E100EB13F4 /* NavigationTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTitleView.swift; sourceTree = "<group>"; };
+		BA73DD8C2AF3C3FA00EB13F4 /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BA73DD8D2AF3C3FA00EB13F4 /* History+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		BA73DD942AF3FF9300EB13F4 /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
+		BA73DD982AF40AFC00EB13F4 /* HistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUseCase.swift; sourceTree = "<group>"; };
+		BA73DD9A2AF40B1B00EB13F4 /* HistoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDTO.swift; sourceTree = "<group>"; };
+		BA73DD9E2AF4116A00EB13F4 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		BA73DDA62AF48AE800EB13F4 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		BA73DDA82AF48C6100EB13F4 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		BA73DDAB2AF48D6D00EB13F4 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		BAD471D52ACBA2CB0021323A /* ViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDelegate.swift; sourceTree = "<group>"; };
 		BAD471D72ACBA4820021323A /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
 		BAD471DE2ACF19EA0021323A /* ToDoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoUseCase.swift; sourceTree = "<group>"; };
 		BAD471E52ACF2AC90021323A /* ChangeStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeStatusViewModel.swift; sourceTree = "<group>"; };
 		BAD471EA2ACF2AF30021323A /* ChangeStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeStatusViewController.swift; sourceTree = "<group>"; };
-		BAD471EC2ACF2B080021323A /* PopOverButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverButton.swift; sourceTree = "<group>"; };
+		BAD471EC2ACF2B080021323A /* ChangeStatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeStatusButton.swift; sourceTree = "<group>"; };
 		BAD4721D2AD428740021323A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BAD472F52AE780310021323A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		BAD472F72AEB63DC0021323A /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
@@ -129,6 +147,8 @@
 			children = (
 				BA64635D2AC043680080E80D /* ToDo+CoreDataClass.swift */,
 				BA64635E2AC043680080E80D /* ToDo+CoreDataProperties.swift */,
+				BA73DD8C2AF3C3FA00EB13F4 /* History+CoreDataClass.swift */,
+				BA73DD8D2AF3C3FA00EB13F4 /* History+CoreDataProperties.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -139,7 +159,6 @@
 				BA64637B2AC0613D0080E80D /* Cell */,
 				BA6463822AC29D180080E80D /* BaseView */,
 				BA6463832AC29D1D0080E80D /* ChildView */,
-				BAD471E42ACF2A9E0021323A /* PopOverView */,
 			);
 			path = ListView;
 			sourceTree = "<group>";
@@ -167,6 +186,7 @@
 			children = (
 				BA64636E2AC04A700080E80D /* BaseListViewModel.swift */,
 				C7431F0925F51E1D0094C4CF /* BaseListViewController.swift */,
+				BA73DD862AF3B9E100EB13F4 /* NavigationTitleView.swift */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -185,26 +205,55 @@
 			children = (
 				BAD472F42AE780160021323A /* DetailView */,
 				BA6463702AC04AAB0080E80D /* ListView */,
+				BA73DDA42AF48AA200EB13F4 /* PopOverView */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		BA73DD822AF1382B00EB13F4 /* CoreData */ = {
+		BA73DD822AF1382B00EB13F4 /* Local */ = {
 			isa = PBXGroup;
 			children = (
 				BA6463622AC043D30080E80D /* Entity */,
 				BA6463632AC043F50080E80D /* CoreDataManager.swift */,
 			);
-			path = CoreData;
+			path = Local;
 			sourceTree = "<group>";
 		};
-		BA73DD832AF1383800EB13F4 /* Firebase */ = {
+		BA73DD832AF1383800EB13F4 /* Remote */ = {
 			isa = PBXGroup;
 			children = (
 				BA73DD782AF0E29200EB13F4 /* FirebaseManager.swift */,
 				BA73DD802AF137D300EB13F4 /* ToDoDTO.swift */,
+				BA73DD9A2AF40B1B00EB13F4 /* HistoryDTO.swift */,
 			);
-			path = Firebase;
+			path = Remote;
+			sourceTree = "<group>";
+		};
+		BA73DDA42AF48AA200EB13F4 /* PopOverView */ = {
+			isa = PBXGroup;
+			children = (
+				BA73DDA52AF48ABB00EB13F4 /* HistoryView */,
+				BAD471E42ACF2A9E0021323A /* ChangeStatusView */,
+			);
+			path = PopOverView;
+			sourceTree = "<group>";
+		};
+		BA73DDA52AF48ABB00EB13F4 /* HistoryView */ = {
+			isa = PBXGroup;
+			children = (
+				BA73DDAA2AF48D4C00EB13F4 /* Cell */,
+				BA73DDA82AF48C6100EB13F4 /* HistoryViewModel.swift */,
+				BA73DDA62AF48AE800EB13F4 /* HistoryViewController.swift */,
+			);
+			path = HistoryView;
+			sourceTree = "<group>";
+		};
+		BA73DDAA2AF48D4C00EB13F4 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				BA73DDAB2AF48D6D00EB13F4 /* HistoryTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		BAD471D42ACBA2B80021323A /* ViewModelProtocol */ = {
@@ -228,11 +277,13 @@
 		BAD471E12ACF280B0021323A /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				BA73DD832AF1383800EB13F4 /* Firebase */,
-				BA73DD822AF1382B00EB13F4 /* CoreData */,
+				BA73DD832AF1383800EB13F4 /* Remote */,
+				BA73DD822AF1382B00EB13F4 /* Local */,
+				BA73DD942AF3FF9300EB13F4 /* DataType.swift */,
 				BA73DD7C2AF1254900EB13F4 /* DataSyncManager.swift */,
 				BAD471DE2ACF19EA0021323A /* ToDoUseCase.swift */,
-				BA73DD842AF395AF00EB13F4 /* SettingManager.swift */,
+				BA73DD982AF40AFC00EB13F4 /* HistoryUseCase.swift */,
+				BA73DD9E2AF4116A00EB13F4 /* DataManager.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -260,14 +311,14 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		BAD471E42ACF2A9E0021323A /* PopOverView */ = {
+		BAD471E42ACF2A9E0021323A /* ChangeStatusView */ = {
 			isa = PBXGroup;
 			children = (
 				BAD471E52ACF2AC90021323A /* ChangeStatusViewModel.swift */,
 				BAD471EA2ACF2AF30021323A /* ChangeStatusViewController.swift */,
-				BAD471EC2ACF2B080021323A /* PopOverButton.swift */,
+				BAD471EC2ACF2B080021323A /* ChangeStatusButton.swift */,
 			);
-			path = PopOverView;
+			path = ChangeStatusView;
 			sourceTree = "<group>";
 		};
 		BAD472032AD3C7120021323A /* Frameworks */ = {
@@ -405,8 +456,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA64637F2AC283F70080E80D /* ChildListViewModel.swift in Sources */,
+				BA73DD872AF3B9E100EB13F4 /* NavigationTitleView.swift in Sources */,
 				BA6463812AC289680080E80D /* KeywordArgument.swift in Sources */,
 				BAD472F62AE780310021323A /* DetailViewController.swift in Sources */,
+				BA73DD9B2AF40B1B00EB13F4 /* HistoryDTO.swift in Sources */,
 				BA73DD792AF0E29200EB13F4 /* FirebaseManager.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* BaseListViewController.swift in Sources */,
 				BA64637A2AC050AD0080E80D /* ListTableViewCell.swift in Sources */,
@@ -415,25 +468,32 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				BAD471E62ACF2AC90021323A /* ChangeStatusViewModel.swift in Sources */,
 				BA6463752AC04F920080E80D /* ListHeaderView.swift in Sources */,
+				BA73DD8E2AF3C3FA00EB13F4 /* History+CoreDataClass.swift in Sources */,
 				BAD472F82AEB63DC0021323A /* DetailViewModel.swift in Sources */,
 				BA64636D2AC045700080E80D /* ViewModelType.swift in Sources */,
 				BA64636F2AC04A700080E80D /* BaseListViewModel.swift in Sources */,
 				BA6463662AC0440E0080E80D /* ProjectManagerError.swift in Sources */,
+				BA73DD992AF40AFC00EB13F4 /* HistoryUseCase.swift in Sources */,
 				BA6463602AC043680080E80D /* ToDo+CoreDataProperties.swift in Sources */,
+				BA73DD952AF3FF9300EB13F4 /* DataType.swift in Sources */,
 				BAD471D62ACBA2CB0021323A /* ViewModelDelegate.swift in Sources */,
 				BA6463682AC044D70080E80D /* ToDoStatus.swift in Sources */,
 				BA73DD7D2AF1254900EB13F4 /* DataSyncManager.swift in Sources */,
 				BAD471D82ACBA4820021323A /* Output.swift in Sources */,
+				BA73DD9F2AF4116A00EB13F4 /* DataManager.swift in Sources */,
 				BA6463782AC04FE40080E80D /* AlertBuilder.swift in Sources */,
+				BA73DD8F2AF3C3FA00EB13F4 /* History+CoreDataProperties.swift in Sources */,
 				BA73DD812AF137D300EB13F4 /* ToDoDTO.swift in Sources */,
 				BAD471DF2ACF19EA0021323A /* ToDoUseCase.swift in Sources */,
 				BA64636A2AC045380080E80D /* Observable.swift in Sources */,
 				BA64635F2AC043680080E80D /* ToDo+CoreDataClass.swift in Sources */,
 				BAD471EB2ACF2AF30021323A /* ChangeStatusViewController.swift in Sources */,
 				BA6463642AC043F50080E80D /* CoreDataManager.swift in Sources */,
-				BA73DD852AF395AF00EB13F4 /* SettingManager.swift in Sources */,
-				BAD471ED2ACF2B080021323A /* PopOverButton.swift in Sources */,
+				BA73DDAC2AF48D6D00EB13F4 /* HistoryTableViewCell.swift in Sources */,
+				BAD471ED2ACF2B080021323A /* ChangeStatusButton.swift in Sources */,
+				BA73DDA72AF48AE800EB13F4 /* HistoryViewController.swift in Sources */,
 				BA64637D2AC26F490080E80D /* ChildListViewController.swift in Sources */,
+				BA73DDA92AF48C6100EB13F4 /* HistoryViewModel.swift in Sources */,
 				BA6463582AC042A90080E80D /* ToDo.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

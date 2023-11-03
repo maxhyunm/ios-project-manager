@@ -7,7 +7,7 @@
 
 import CoreData
 
-struct CoreDataManager<T: NSManagedObject> {
+struct CoreDataManager<T: LocalType> {
     let persistentContainer: NSPersistentContainer
     
     init(containerName: String) {
@@ -18,13 +18,13 @@ struct CoreDataManager<T: NSManagedObject> {
         }()
     }
 
-    func fetchData(entityName: String, predicate: NSPredicate? = nil, sort: String? = nil) throws -> [T] {
+    func fetchData(entityName: String, predicate: NSPredicate? = nil, sort: String? = nil, ascending: Bool = true) throws -> [T] {
         let request: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: entityName)
         if let predicate {
             request.predicate = predicate
         }
         if let sort {
-            let sorted = NSSortDescriptor(key: sort, ascending: true)
+            let sorted = NSSortDescriptor(key: sort, ascending: ascending)
             request.sortDescriptors = [sorted]
         }
         do {

@@ -8,12 +8,15 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    let settingManager = SettingManager()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let toDoViewModel = BaseListViewModel(useCase: settingManager.useCase)
+        let toDoDataManager = DataManager<ToDo, ToDoDTO>(name: "ToDo")
+        let toDoUseCase = ToDoUseCase(dataSyncManager: toDoDataManager.dataSyncManager)
+        let historyDataManager = DataManager<History, HistoryDTO>(name: "History")
+        let historyUseCase = HistoryUseCase(dataSyncManager: historyDataManager.dataSyncManager)
+        let toDoViewModel = BaseListViewModel(toDoUseCase: toDoUseCase, historyUseCase: historyUseCase)
         let baseViewController = BaseListViewController(toDoViewModel)
         let navigationViewController = UINavigationController(rootViewController: baseViewController)
         toDoViewModel.syncData()

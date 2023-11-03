@@ -21,6 +21,8 @@ final class BaseListViewController: UIViewController {
         return stackView
     }()
     
+    private let navigationTitle = NavigationTitleView()
+    
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -50,15 +52,7 @@ final class BaseListViewController: UIViewController {
         NetworkMonitor.shared.isConnected
             .observe(on: MainScheduler.instance)
             .bind { [weak self] isNetworkAvailable in
-                if isNetworkAvailable {
-                    let connectionIcon = UIAction(title: "ONLINE", image: UIImage(systemName: "powerplug.fill")) { _ in }
-                    connectionIcon.image?.withTintColor(.systemGreen)
-                    self?.navigationItem.leftBarButtonItem = UIBarButtonItem(primaryAction: connectionIcon)
-                } else {
-                    let connectionIcon = UIAction(title: "OFFLINE", image: UIImage(systemName: "powerplug")) { _ in }
-                    connectionIcon.image?.withTintColor(.systemRed)
-                    self?.navigationItem.leftBarButtonItem = UIBarButtonItem(primaryAction: connectionIcon)
-                }
+                self?.navigationTitle.toggleIcon(isOnline: isNetworkAvailable)
             }
             .disposed(by: disposeBag)
     }
@@ -95,7 +89,7 @@ final class BaseListViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        self.title = "Project Manager"
+        self.navigationItem.titleView = navigationTitle
         let addToDo = UIAction(image: UIImage(systemName: "plus")) { [weak self] _ in
             guard let viewModelDelegate = self?.viewModel as? BaseViewModelDelegate else { return }
             let detailViewController = DetailViewController()
@@ -105,7 +99,22 @@ final class BaseListViewController: UIViewController {
             let detailNavigation = UINavigationController(rootViewController: detailViewController)
             self?.present(detailNavigation, animated: true)
         }
+        let viewHistory = UIAction(title:"History") { [weak self] _ in
+            guard let self else { return }
+            let historyViewModel = HistoryViewModel(useCase: self.viewModel.historyUseCase)
+            let historyViewController = HistoryViewController(historyViewModel, dateFormatter: dateFormatter)
+            historyViewController.modalPresentationStyle = .popover
+            historyViewController.preferredContentSize = CGSize(width: 500, height: 400)
+            
+            let popOverController = historyViewController.popoverPresentationController
+            popOverController?.sourceView = view
+            popOverController?.sourceRect = CGRect(x: 10, y: 70, width: 0, height: 0)
+            popOverController?.permittedArrowDirections = .up
+            present(historyViewController, animated: true)
+            
+        }
         navigationItem.rightBarButtonItem = UIBarButtonItem(primaryAction: addToDo)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(primaryAction: viewHistory)
     }
 }
 
