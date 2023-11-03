@@ -41,9 +41,7 @@ struct CoreDataManager {
     @discardableResult
     func createData<T: NSManagedObject>(values: [KeywordArgument]) throws -> T {
         let newData = T(context: persistentContainer.viewContext)
-        values.forEach { newData.setValue($0.value, forKey: $0.key) }
-        try saveContext()
-        return newData
+        return try updateData(entity: newData, values: values)
     }
     
     @discardableResult

@@ -48,9 +48,7 @@ extension BaseListViewModel {
     func createData(values: [KeywordArgument], status: ToDoStatus = ToDoStatus.toDo) {
         do {
             guard let title = values.filter({ $0.key == "title" }).first?.value as? String else { return }
-            print("-------------------------------1")
             try toDoUseCase.createData(values: values)
-            print("-------------------------------2")
             try historyUseCase.createData(when: Date(), action: .create(title: title))
             fetchData(for:status)
             children[status]?.action.accept(Output(type: .create))
