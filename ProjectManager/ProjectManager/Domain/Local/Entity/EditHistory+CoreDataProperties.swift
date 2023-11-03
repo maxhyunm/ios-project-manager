@@ -9,9 +9,9 @@
 import Foundation
 import CoreData
 
-extension History {
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<History> {
-        return NSFetchRequest<History>(entityName: "History")
+extension EditHistory {
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<EditHistory> {
+        return NSFetchRequest<EditHistory>(entityName: "History")
     }
     
     @NSManaged public var id: UUID
@@ -21,7 +21,7 @@ extension History {
     @NSManaged public var willBeDeleted: Bool
 }
 
-extension History: LocalType {
+extension EditHistory: LocalType {
     func makeAttributeKeywordArguments() -> [KeywordArgument] {
         return [KeywordArgument(key: "id", value: id),
                 KeywordArgument(key: "title", value: title),
@@ -40,4 +40,6 @@ extension History: LocalType {
                 "uploadedAt": dateFormatter.string(from: uploadedAt),
                 "willBeDeleted": willBeDeleted]
     }
+    
+    
 }
