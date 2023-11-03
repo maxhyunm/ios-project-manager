@@ -25,6 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let toDoViewModel = BaseListViewModel(toDoUseCase: toDoUseCase, historyUseCase: historyUseCase)
         let baseViewController = BaseListViewController(toDoViewModel)
         let navigationViewController = UINavigationController(rootViewController: baseViewController)
+        
         toDoViewModel.syncData()
         window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()

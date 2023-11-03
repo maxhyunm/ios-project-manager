@@ -155,8 +155,8 @@ extension ChildListViewController {
 
 extension ChildListViewController {
     @objc private func longPressEvent(sender: UILongPressGestureRecognizer) {
+        guard sender.state == .ended else { return }
         let point = sender.location(in: tableView)
-        
         guard let indexPath = self.tableView.indexPathForRow(at: point),
               let viewModelDelegate = viewModel as? ChildViewModelDelegate else { return }
         let entity = viewModel.outputs.entityList[indexPath.row]

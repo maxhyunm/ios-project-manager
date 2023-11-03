@@ -16,16 +16,16 @@ struct HistoryDataSyncManager {
         self.firebaseManager = firebaseManager
     }
     
-    func syncLocalWithRemote(errorHandler: @escaping (Error) -> Void) {
+    func syncLocalWithRemote(handler: @escaping (Error) -> Void) {
         do {
-            try mergeRemoteDataToLocal() { errorHandler($0) }
+            try mergeRemoteDataToLocal() { handler($0) }
             try mergeLocalDataToRemote()
         } catch(let error) {
-            errorHandler(error)
+            handler(error)
         }
     }
     
-    private func mergeRemoteDataToLocal(errorHandler: @escaping (Error) -> Void) throws {
+    private func mergeRemoteDataToLocal(handler: @escaping (Error) -> Void) throws {
         firebaseManager.loadData(entityName: "History") { (result: Result<[HistoryDTO], Error>) in
             switch result {
             case .success(let data):
@@ -35,13 +35,13 @@ struct HistoryDataSyncManager {
                     let remoteList = data.filter { !localIdList.contains($0.id) }
                     
                     try remoteList.forEach { entity in
-                        try coreDataManager.createData(values: entity.makeAttributeKeywordArguments())
+                        let _: History = try coreDataManager.createData(values: entity.makeAttributeKeywordArguments())
                     }
                 } catch(let error) {
-                    errorHandler(error)
+                    handler(error)
                 }
             case .failure(let error):
-                errorHandler(error)
+                handler(error)
             }
         }
     }
