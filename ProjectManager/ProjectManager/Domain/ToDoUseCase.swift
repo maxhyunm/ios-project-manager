@@ -9,21 +9,20 @@ import CoreData
 import RxSwift
 
 struct ToDoUseCase {
-    let dataSyncManager: DataSyncManager<ToDo, ToDoDTO>
+    let dataSyncManager: ToDoDataSyncManager
     
-    init(dataSyncManager: DataSyncManager<ToDo, ToDoDTO>) {
+    init(dataSyncManager: ToDoDataSyncManager) {
         self.dataSyncManager = dataSyncManager
     }
     
     func fetchDataByStatus(for status: ToDoStatus) throws -> [ToDo] {
         let predicated = NSPredicate(format: "status == %@ AND willBeDeleted == %d", status.rawValue, false)
-        let result = try dataSyncManager.coreDataManager.fetchData(entityName:"ToDo", predicate: predicated, sort: "modifiedAt")
+        let result: [ToDo] = try dataSyncManager.coreDataManager.fetchData(entityName:"ToDo", predicate: predicated, sort: "modifiedAt")
 
         return result
     }
-    
-    @discardableResult
-    func createData(values: [KeywordArgument]) throws -> ToDo {
+
+    func createData(values: [KeywordArgument]) throws {
         var values = values
         
         if values.filter({ $0.key == "id" }).isEmpty {
@@ -41,13 +40,11 @@ struct ToDoUseCase {
         if values.filter({ $0.key == "willBeDeleted"}).isEmpty {
             values.append(KeywordArgument(key: "willBeDeleted", value: false))
         }
-        let entity = try dataSyncManager.coreDataManager.createData(values: values)
+        let entity: ToDo = try dataSyncManager.coreDataManager.createData(values: values)
         
         if NetworkMonitor.shared.isConnected.value {
             try dataSyncManager.mergeSingleLocalDataToRemote(entity, uploadedAt: Date())
         }
-        
-        return entity
     }
     
     @discardableResult
@@ -56,18 +53,18 @@ struct ToDoUseCase {
         if values.filter({ $0.key == "modifiedAt" }).isEmpty {
             values.append(KeywordArgument(key: "modifiedAt", value: Date()))
         }
-        let modified = try dataSyncManager.coreDataManager.updateData(entity: entity, values: values)
+        try dataSyncManager.coreDataManager.updateData(entity: entity, values: values)
         if NetworkMonitor.shared.isConnected.value {
-            try dataSyncManager.mergeSingleLocalDataToRemote(modified, uploadedAt: Date())
+            try dataSyncManager.mergeSingleLocalDataToRemote(entity, uploadedAt: Date())
         }
         
-        return modified
+        return entity
     }
     
     func deleteData(_ entity: ToDo) throws {
-        let modified = try updateData(entity, values: [KeywordArgument(key: "willBeDeleted", value: true)])
+        try updateData(entity, values: [KeywordArgument(key: "willBeDeleted", value: true)])
         if NetworkMonitor.shared.isConnected.value {
-            try dataSyncManager.deleteSingleData(modified)
+            try dataSyncManager.deleteSingleData(entity)
         }
     }
     

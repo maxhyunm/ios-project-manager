@@ -7,15 +7,14 @@
 
 import Foundation
 
-struct HistoryDTO: RemoteType, Hashable {
+struct HistoryDTO: Decodable, Hashable {
     var id: UUID
     var title: String
     var createdAt: Date
     var uploadedAt: Date
-    var willBeDeleted: Bool
 
     enum CodingKeys: String, CodingKey {
-        case id, title, createdAt, uploadedAt, willBeDeleted
+        case id, title, createdAt, uploadedAt
     }
     
     init(from decoder: Decoder) throws {
@@ -32,15 +31,13 @@ struct HistoryDTO: RemoteType, Hashable {
         title = try container.decode(String.self, forKey: .title)
         createdAt = dtoCreatedAt
         uploadedAt = dtoUploadedAt
-        willBeDeleted = try container.decode(Bool.self, forKey: .willBeDeleted)
     }
     
     func makeAttributeKeywordArguments() -> [KeywordArgument] {
         return [KeywordArgument(key: "id", value: id),
                 KeywordArgument(key: "title", value: title),
                 KeywordArgument(key: "createdAt", value: createdAt),
-                KeywordArgument(key: "uploadedAt", value: uploadedAt),
-                KeywordArgument(key: "willBeDeleted", value: willBeDeleted)]
+                KeywordArgument(key: "uploadedAt", value: uploadedAt)]
     }
     
     func makeAttributeDictionary() -> [String: Any] {
@@ -49,7 +46,6 @@ struct HistoryDTO: RemoteType, Hashable {
         return ["id": id.uuidString,
                 "title": title,
                 "createdAt": dateFormatter.string(from: createdAt),
-                "uploadedAt": dateFormatter.string(from: uploadedAt),
-                "willBeDeleted": willBeDeleted]
+                "uploadedAt": dateFormatter.string(from: uploadedAt)]
     }
 }

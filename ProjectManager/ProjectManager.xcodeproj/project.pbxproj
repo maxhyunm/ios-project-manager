@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BA6463582AC042A90080E80D /* ToDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BA6463562AC042A90080E80D /* ToDo.xcdatamodeld */; };
-		BA64635F2AC043680080E80D /* ToDo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64635D2AC043680080E80D /* ToDo+CoreDataClass.swift */; };
-		BA6463602AC043680080E80D /* ToDo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64635E2AC043680080E80D /* ToDo+CoreDataProperties.swift */; };
 		BA6463642AC043F50080E80D /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6463632AC043F50080E80D /* CoreDataManager.swift */; };
 		BA6463662AC0440E0080E80D /* ProjectManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6463652AC0440E0080E80D /* ProjectManagerError.swift */; };
 		BA6463682AC044D70080E80D /* ToDoStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6463672AC044D70080E80D /* ToDoStatus.swift */; };
@@ -23,16 +20,12 @@
 		BA64637F2AC283F70080E80D /* ChildListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64637E2AC283F70080E80D /* ChildListViewModel.swift */; };
 		BA6463812AC289680080E80D /* KeywordArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6463802AC289680080E80D /* KeywordArgument.swift */; };
 		BA73DD792AF0E29200EB13F4 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD782AF0E29200EB13F4 /* FirebaseManager.swift */; };
-		BA73DD7D2AF1254900EB13F4 /* DataSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD7C2AF1254900EB13F4 /* DataSyncManager.swift */; };
+		BA73DD7D2AF1254900EB13F4 /* ToDoDataSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD7C2AF1254900EB13F4 /* ToDoDataSyncManager.swift */; };
 		BA73DD7F2AF12B8400EB13F4 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD7E2AF12B8400EB13F4 /* NetworkMonitor.swift */; };
 		BA73DD812AF137D300EB13F4 /* ToDoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD802AF137D300EB13F4 /* ToDoDTO.swift */; };
 		BA73DD872AF3B9E100EB13F4 /* NavigationTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD862AF3B9E100EB13F4 /* NavigationTitleView.swift */; };
-		BA73DD8E2AF3C3FA00EB13F4 /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD8C2AF3C3FA00EB13F4 /* History+CoreDataClass.swift */; };
-		BA73DD8F2AF3C3FA00EB13F4 /* History+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD8D2AF3C3FA00EB13F4 /* History+CoreDataProperties.swift */; };
-		BA73DD952AF3FF9300EB13F4 /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD942AF3FF9300EB13F4 /* DataType.swift */; };
 		BA73DD992AF40AFC00EB13F4 /* HistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD982AF40AFC00EB13F4 /* HistoryUseCase.swift */; };
 		BA73DD9B2AF40B1B00EB13F4 /* HistoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD9A2AF40B1B00EB13F4 /* HistoryDTO.swift */; };
-		BA73DD9F2AF4116A00EB13F4 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DD9E2AF4116A00EB13F4 /* DataManager.swift */; };
 		BA73DDA72AF48AE800EB13F4 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DDA62AF48AE800EB13F4 /* HistoryViewController.swift */; };
 		BA73DDA92AF48C6100EB13F4 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DDA82AF48C6100EB13F4 /* HistoryViewModel.swift */; };
 		BA73DDAC2AF48D6D00EB13F4 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DDAB2AF48D6D00EB13F4 /* HistoryTableViewCell.swift */; };
@@ -45,6 +38,12 @@
 		BA73DDC02AF4C5CE00EB13F4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BA73DDBF2AF4C5CE00EB13F4 /* FirebaseFirestore */; };
 		BA73DDC22AF4C5CE00EB13F4 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = BA73DDC12AF4C5CE00EB13F4 /* FirebaseFirestoreCombine-Community */; };
 		BA73DDC42AF4C5CE00EB13F4 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BA73DDC32AF4C5CE00EB13F4 /* FirebaseFirestoreSwift */; };
+		BA73DDC72AF4C7DF00EB13F4 /* HistoryDataSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DDC62AF4C7DF00EB13F4 /* HistoryDataSyncManager.swift */; };
+		BA73DDCA2AF4CC0F00EB13F4 /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BA73DDC82AF4CC0F00EB13F4 /* ProjectManager.xcdatamodeld */; };
+		BA73DDCF2AF4CCDD00EB13F4 /* ToDo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DDCB2AF4CCDD00EB13F4 /* ToDo+CoreDataClass.swift */; };
+		BA73DDD02AF4CCDD00EB13F4 /* ToDo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DDCC2AF4CCDD00EB13F4 /* ToDo+CoreDataProperties.swift */; };
+		BA73DDD12AF4CCDD00EB13F4 /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DDCD2AF4CCDD00EB13F4 /* History+CoreDataClass.swift */; };
+		BA73DDD22AF4CCDD00EB13F4 /* History+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73DDCE2AF4CCDD00EB13F4 /* History+CoreDataProperties.swift */; };
 		BAD471D62ACBA2CB0021323A /* ViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471D52ACBA2CB0021323A /* ViewModelDelegate.swift */; };
 		BAD471D82ACBA4820021323A /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471D72ACBA4820021323A /* Output.swift */; };
 		BAD471DF2ACF19EA0021323A /* ToDoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471DE2ACF19EA0021323A /* ToDoUseCase.swift */; };
@@ -75,9 +74,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		BA6463572AC042A90080E80D /* ToDo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDo.xcdatamodel; sourceTree = "<group>"; };
-		BA64635D2AC043680080E80D /* ToDo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataClass.swift"; sourceTree = "<group>"; };
-		BA64635E2AC043680080E80D /* ToDo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BA6463632AC043F50080E80D /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		BA6463652AC0440E0080E80D /* ProjectManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerError.swift; sourceTree = "<group>"; };
 		BA6463672AC044D70080E80D /* ToDoStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoStatus.swift; sourceTree = "<group>"; };
@@ -91,19 +87,21 @@
 		BA64637E2AC283F70080E80D /* ChildListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildListViewModel.swift; sourceTree = "<group>"; };
 		BA6463802AC289680080E80D /* KeywordArgument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgument.swift; sourceTree = "<group>"; };
 		BA73DD782AF0E29200EB13F4 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
-		BA73DD7C2AF1254900EB13F4 /* DataSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSyncManager.swift; sourceTree = "<group>"; };
+		BA73DD7C2AF1254900EB13F4 /* ToDoDataSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDataSyncManager.swift; sourceTree = "<group>"; };
 		BA73DD7E2AF12B8400EB13F4 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		BA73DD802AF137D300EB13F4 /* ToDoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDTO.swift; sourceTree = "<group>"; };
 		BA73DD862AF3B9E100EB13F4 /* NavigationTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTitleView.swift; sourceTree = "<group>"; };
-		BA73DD8C2AF3C3FA00EB13F4 /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataClass.swift"; sourceTree = "<group>"; };
-		BA73DD8D2AF3C3FA00EB13F4 /* History+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		BA73DD942AF3FF9300EB13F4 /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
 		BA73DD982AF40AFC00EB13F4 /* HistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUseCase.swift; sourceTree = "<group>"; };
 		BA73DD9A2AF40B1B00EB13F4 /* HistoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDTO.swift; sourceTree = "<group>"; };
-		BA73DD9E2AF4116A00EB13F4 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		BA73DDA62AF48AE800EB13F4 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		BA73DDA82AF48C6100EB13F4 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		BA73DDAB2AF48D6D00EB13F4 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		BA73DDC62AF4C7DF00EB13F4 /* HistoryDataSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataSyncManager.swift; sourceTree = "<group>"; };
+		BA73DDC92AF4CC0F00EB13F4 /* ProjectManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectManager.xcdatamodel; sourceTree = "<group>"; };
+		BA73DDCB2AF4CCDD00EB13F4 /* ToDo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BA73DDCC2AF4CCDD00EB13F4 /* ToDo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		BA73DDCD2AF4CCDD00EB13F4 /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BA73DDCE2AF4CCDD00EB13F4 /* History+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BAD471D52ACBA2CB0021323A /* ViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDelegate.swift; sourceTree = "<group>"; };
 		BAD471D72ACBA4820021323A /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
 		BAD471DE2ACF19EA0021323A /* ToDoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoUseCase.swift; sourceTree = "<group>"; };
@@ -145,10 +143,10 @@
 		BA6463622AC043D30080E80D /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				BA64635D2AC043680080E80D /* ToDo+CoreDataClass.swift */,
-				BA64635E2AC043680080E80D /* ToDo+CoreDataProperties.swift */,
-				BA73DD8C2AF3C3FA00EB13F4 /* History+CoreDataClass.swift */,
-				BA73DD8D2AF3C3FA00EB13F4 /* History+CoreDataProperties.swift */,
+				BA73DDCB2AF4CCDD00EB13F4 /* ToDo+CoreDataClass.swift */,
+				BA73DDCC2AF4CCDD00EB13F4 /* ToDo+CoreDataProperties.swift */,
+				BA73DDCD2AF4CCDD00EB13F4 /* History+CoreDataClass.swift */,
+				BA73DDCE2AF4CCDD00EB13F4 /* History+CoreDataProperties.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -222,9 +220,8 @@
 		BA73DD832AF1383800EB13F4 /* Remote */ = {
 			isa = PBXGroup;
 			children = (
+				BA73DDC52AF4C7AA00EB13F4 /* Entity */,
 				BA73DD782AF0E29200EB13F4 /* FirebaseManager.swift */,
-				BA73DD802AF137D300EB13F4 /* ToDoDTO.swift */,
-				BA73DD9A2AF40B1B00EB13F4 /* HistoryDTO.swift */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -256,6 +253,15 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		BA73DDC52AF4C7AA00EB13F4 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				BA73DD802AF137D300EB13F4 /* ToDoDTO.swift */,
+				BA73DD9A2AF40B1B00EB13F4 /* HistoryDTO.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		BAD471D42ACBA2B80021323A /* ViewModelProtocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,11 +285,10 @@
 			children = (
 				BA73DD832AF1383800EB13F4 /* Remote */,
 				BA73DD822AF1382B00EB13F4 /* Local */,
-				BA73DD942AF3FF9300EB13F4 /* DataType.swift */,
-				BA73DD7C2AF1254900EB13F4 /* DataSyncManager.swift */,
+				BA73DD7C2AF1254900EB13F4 /* ToDoDataSyncManager.swift */,
+				BA73DDC62AF4C7DF00EB13F4 /* HistoryDataSyncManager.swift */,
 				BAD471DE2ACF19EA0021323A /* ToDoUseCase.swift */,
 				BA73DD982AF40AFC00EB13F4 /* HistoryUseCase.swift */,
-				BA73DD9E2AF4116A00EB13F4 /* DataManager.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -362,9 +367,9 @@
 				BAD471E32ACF28CC0021323A /* Utility */,
 				BAD471E22ACF28150021323A /* Presentation */,
 				BAD471DA2ACBC4550021323A /* Resource */,
-				BA6463562AC042A90080E80D /* ToDo.xcdatamodeld */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				BAD4721D2AD428740021323A /* GoogleService-Info.plist */,
+				BA73DDC82AF4CC0F00EB13F4 /* ProjectManager.xcdatamodeld */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -455,9 +460,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA73DDD02AF4CCDD00EB13F4 /* ToDo+CoreDataProperties.swift in Sources */,
 				BA64637F2AC283F70080E80D /* ChildListViewModel.swift in Sources */,
 				BA73DD872AF3B9E100EB13F4 /* NavigationTitleView.swift in Sources */,
 				BA6463812AC289680080E80D /* KeywordArgument.swift in Sources */,
+				BA73DDCF2AF4CCDD00EB13F4 /* ToDo+CoreDataClass.swift in Sources */,
 				BAD472F62AE780310021323A /* DetailViewController.swift in Sources */,
 				BA73DD9B2AF40B1B00EB13F4 /* HistoryDTO.swift in Sources */,
 				BA73DD792AF0E29200EB13F4 /* FirebaseManager.swift in Sources */,
@@ -465,36 +472,33 @@
 				BA64637A2AC050AD0080E80D /* ListTableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				BA73DD7F2AF12B8400EB13F4 /* NetworkMonitor.swift in Sources */,
+				BA73DDD12AF4CCDD00EB13F4 /* History+CoreDataClass.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				BAD471E62ACF2AC90021323A /* ChangeStatusViewModel.swift in Sources */,
+				BA73DDCA2AF4CC0F00EB13F4 /* ProjectManager.xcdatamodeld in Sources */,
 				BA6463752AC04F920080E80D /* ListHeaderView.swift in Sources */,
-				BA73DD8E2AF3C3FA00EB13F4 /* History+CoreDataClass.swift in Sources */,
 				BAD472F82AEB63DC0021323A /* DetailViewModel.swift in Sources */,
 				BA64636D2AC045700080E80D /* ViewModelType.swift in Sources */,
 				BA64636F2AC04A700080E80D /* BaseListViewModel.swift in Sources */,
 				BA6463662AC0440E0080E80D /* ProjectManagerError.swift in Sources */,
 				BA73DD992AF40AFC00EB13F4 /* HistoryUseCase.swift in Sources */,
-				BA6463602AC043680080E80D /* ToDo+CoreDataProperties.swift in Sources */,
-				BA73DD952AF3FF9300EB13F4 /* DataType.swift in Sources */,
 				BAD471D62ACBA2CB0021323A /* ViewModelDelegate.swift in Sources */,
 				BA6463682AC044D70080E80D /* ToDoStatus.swift in Sources */,
-				BA73DD7D2AF1254900EB13F4 /* DataSyncManager.swift in Sources */,
+				BA73DD7D2AF1254900EB13F4 /* ToDoDataSyncManager.swift in Sources */,
 				BAD471D82ACBA4820021323A /* Output.swift in Sources */,
-				BA73DD9F2AF4116A00EB13F4 /* DataManager.swift in Sources */,
 				BA6463782AC04FE40080E80D /* AlertBuilder.swift in Sources */,
-				BA73DD8F2AF3C3FA00EB13F4 /* History+CoreDataProperties.swift in Sources */,
+				BA73DDD22AF4CCDD00EB13F4 /* History+CoreDataProperties.swift in Sources */,
 				BA73DD812AF137D300EB13F4 /* ToDoDTO.swift in Sources */,
 				BAD471DF2ACF19EA0021323A /* ToDoUseCase.swift in Sources */,
 				BA64636A2AC045380080E80D /* Observable.swift in Sources */,
-				BA64635F2AC043680080E80D /* ToDo+CoreDataClass.swift in Sources */,
 				BAD471EB2ACF2AF30021323A /* ChangeStatusViewController.swift in Sources */,
 				BA6463642AC043F50080E80D /* CoreDataManager.swift in Sources */,
+				BA73DDC72AF4C7DF00EB13F4 /* HistoryDataSyncManager.swift in Sources */,
 				BA73DDAC2AF48D6D00EB13F4 /* HistoryTableViewCell.swift in Sources */,
 				BAD471ED2ACF2B080021323A /* ChangeStatusButton.swift in Sources */,
 				BA73DDA72AF48AE800EB13F4 /* HistoryViewController.swift in Sources */,
 				BA64637D2AC26F490080E80D /* ChildListViewController.swift in Sources */,
 				BA73DDA92AF48C6100EB13F4 /* HistoryViewModel.swift in Sources */,
-				BA6463582AC042A90080E80D /* ToDo.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -759,13 +763,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		BA6463562AC042A90080E80D /* ToDo.xcdatamodeld */ = {
+		BA73DDC82AF4CC0F00EB13F4 /* ProjectManager.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				BA6463572AC042A90080E80D /* ToDo.xcdatamodel */,
+				BA73DDC92AF4CC0F00EB13F4 /* ProjectManager.xcdatamodel */,
 			);
-			currentVersion = BA6463572AC042A90080E80D /* ToDo.xcdatamodel */;
-			path = ToDo.xcdatamodeld;
+			currentVersion = BA73DDC92AF4CC0F00EB13F4 /* ProjectManager.xcdatamodel */;
+			path = ProjectManager.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

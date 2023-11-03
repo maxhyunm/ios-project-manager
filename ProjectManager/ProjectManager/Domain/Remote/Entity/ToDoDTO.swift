@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ToDoDTO: RemoteType, Hashable {
+struct ToDoDTO: Decodable, Hashable {
     var id: UUID
     var title: String
     var dueDate: Date

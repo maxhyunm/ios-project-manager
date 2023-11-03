@@ -2,20 +2,18 @@
 //  ToDo+CoreDataProperties.swift
 //  ProjectManager
 //
-//  Created by Max on 2023/09/24.
+//  Created by Max on 2023/11/03.
 //
 //
 
 import Foundation
 import CoreData
 
-
 extension ToDo {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ToDo> {
         return NSFetchRequest<ToDo>(entityName: "ToDo")
     }
     
-    @NSManaged public var id: UUID
     @NSManaged public var title: String
     @NSManaged public var dueDate: Date
     @NSManaged public var body: String
@@ -26,7 +24,11 @@ extension ToDo {
     
 }
 
-extension ToDo: LocalType {
+extension ToDo: Identifiable {
+    @NSManaged public var id: UUID
+}
+
+extension ToDo {
     func makeAttributeKeywordArguments() -> [KeywordArgument] {
         return [KeywordArgument(key: "id", value: id),
                 KeywordArgument(key: "title", value: title),

@@ -2,7 +2,7 @@
 //  History+CoreDataProperties.swift
 //  ProjectManager
 //
-//  Created by Max on 2023/11/02.
+//  Created by Max on 2023/11/03.
 //
 //
 
@@ -14,20 +14,22 @@ extension History {
         return NSFetchRequest<History>(entityName: "History")
     }
     
-    @NSManaged public var id: UUID
     @NSManaged public var title: String
     @NSManaged public var createdAt: Date
     @NSManaged public var uploadedAt: Date?
-    @NSManaged public var willBeDeleted: Bool
+    
 }
 
-extension History: LocalType {
+extension History: Identifiable {
+    @NSManaged public var id: UUID
+}
+
+extension History {
     func makeAttributeKeywordArguments() -> [KeywordArgument] {
         return [KeywordArgument(key: "id", value: id),
                 KeywordArgument(key: "title", value: title),
                 KeywordArgument(key: "createdAt", value: createdAt),
-                KeywordArgument(key: "uploadedAt", value: uploadedAt),
-                KeywordArgument(key: "willBeDeleted", value: willBeDeleted)]
+                KeywordArgument(key: "uploadedAt", value: uploadedAt)]
     }
     
     func makeAttributeDictionary() -> [String: Any] {
@@ -37,7 +39,6 @@ extension History: LocalType {
         return ["id": id.uuidString,
                 "title": title,
                 "createdAt": dateFormatter.string(from: createdAt),
-                "uploadedAt": dateFormatter.string(from: uploadedAt),
-                "willBeDeleted": willBeDeleted]
+                "uploadedAt": dateFormatter.string(from: uploadedAt)]
     }
 }

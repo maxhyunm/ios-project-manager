@@ -10,15 +10,13 @@ import CoreData
 import RxSwift
 import RxCocoa
 
-struct DataSyncManager<Local: LocalType, Remote: RemoteType> {
-    let coreDataManager: CoreDataManager<Local>
-    let firebaseManager: FirebaseManager<Remote>
-    let name: String
+struct ToDoDataSyncManager {
+    let coreDataManager: CoreDataManager
+    let firebaseManager: FirebaseManager
     
-    init(coreDataManager: CoreDataManager<Local>, firebaseManager: FirebaseManager<Remote>, name: String) {
+    init(coreDataManager: CoreDataManager, firebaseManager: FirebaseManager) {
         self.coreDataManager = coreDataManager
         self.firebaseManager = firebaseManager
-        self.name = name
     }
     
     func syncLocalWithRemote(errorHandler: @escaping (Error) -> Void) {
@@ -33,11 +31,11 @@ struct DataSyncManager<Local: LocalType, Remote: RemoteType> {
     }
     
     private func mergeRemoteDataToLocal(errorHandler: @escaping (Error) -> Void) throws {
-        firebaseManager.loadData { result in
+        firebaseManager.loadData(entityName: "ToDo") { (result: Result<[ToDoDTO], Error>) in
             switch result {
             case .success(let data):
                 do {
-                    let localEntities = try coreDataManager.fetchData(entityName: name)
+                    let localEntities: [ToDo] = try coreDataManager.fetchData(entityName: "ToDo")
                     let localIdList: [UUID] = localEntities.map { $0.id }
                     let remoteList = data.filter { !localIdList.contains($0.id) }
                     
@@ -53,17 +51,17 @@ struct DataSyncManager<Local: LocalType, Remote: RemoteType> {
         }
     }
     
-    func mergeSingleLocalDataToRemote(_ entity: Local, uploadedAt: Date) throws {
+    func mergeSingleLocalDataToRemote(_ entity: ToDo, uploadedAt: Date) throws {
         let values = [KeywordArgument(key: "uploadedAt", value: uploadedAt)]
         try coreDataManager.updateData(entity: entity, values: values)
-        firebaseManager.changeData(id: entity.id.uuidString, values: entity.makeAttributeDictionary())
+        firebaseManager.changeData(entityName: "ToDo", id: entity.id.uuidString, values: entity.makeAttributeDictionary())
     }
 
     private func mergeLocalDataToRemote(for type: MergeType) throws {
         let onCondition = NSPredicate(format: type.predicateCondition)
         let notDeleted = NSPredicate(format: "willBeDeleted == %d", false)
         let predicated = NSCompoundPredicate.init(type: .and, subpredicates: [onCondition, notDeleted])
-        let result = try coreDataManager.fetchData(entityName: name, predicate: predicated)
+        let result: [ToDo] = try coreDataManager.fetchData(entityName: "ToDo", predicate: predicated)
         let uploadedAt = Date()
         
         try result.forEach { entity in
@@ -71,14 +69,14 @@ struct DataSyncManager<Local: LocalType, Remote: RemoteType> {
         }
     }
     
-    func deleteSingleData(_ entity: Local) throws {
-        firebaseManager.deleteData(id: entity.id.uuidString)
+    func deleteSingleData(_ entity: ToDo) throws {
+        firebaseManager.deleteData(entityName: "ToDo", id: entity.id.uuidString)
         try coreDataManager.deleteData(entity: entity)
     }
     
     private func deleteData() throws {
         let predicated = NSPredicate(format: "willBeDeleted == %d", true)
-        let result = try coreDataManager.fetchData(entityName: name, predicate: predicated)
+        let result: [ToDo] = try coreDataManager.fetchData(entityName: "ToDo", predicate: predicated)
 
         try result.forEach { entity in
             try deleteSingleData(entity)
@@ -86,7 +84,7 @@ struct DataSyncManager<Local: LocalType, Remote: RemoteType> {
     }
 }
 
-extension DataSyncManager {
+extension ToDoDataSyncManager {
     enum MergeType {
         case create
         case update

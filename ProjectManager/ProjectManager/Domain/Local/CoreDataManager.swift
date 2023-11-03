@@ -7,7 +7,7 @@
 
 import CoreData
 
-struct CoreDataManager<T: LocalType> {
+struct CoreDataManager {
     let persistentContainer: NSPersistentContainer
     
     init(containerName: String) {
@@ -18,7 +18,7 @@ struct CoreDataManager<T: LocalType> {
         }()
     }
 
-    func fetchData(entityName: String, predicate: NSPredicate? = nil, sort: String? = nil, ascending: Bool = true) throws -> [T] {
+    func fetchData<T: NSManagedObject>(entityName: String, predicate: NSPredicate? = nil, sort: String? = nil, ascending: Bool = true) throws -> [T] {
         let request: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: entityName)
         if let predicate {
             request.predicate = predicate
@@ -39,19 +39,21 @@ struct CoreDataManager<T: LocalType> {
     }
     
     @discardableResult
-    func createData(values: [KeywordArgument]) throws -> T {
+    func createData<T: NSManagedObject>(values: [KeywordArgument]) throws -> T {
         let newData = T(context: persistentContainer.viewContext)
-        return try updateData(entity: newData, values: values)
+        values.forEach { newData.setValue($0.value, forKey: $0.key) }
+        try saveContext()
+        return newData
     }
     
     @discardableResult
-    func updateData(entity: T, values: [KeywordArgument]) throws -> T  {
+    func updateData<T: NSManagedObject>(entity: T, values: [KeywordArgument]) throws -> T  {
         values.forEach { entity.setValue($0.value, forKey: $0.key) }
         try saveContext()
         return entity
     }
     
-    func deleteData(entity: T) throws {
+    func deleteData<T: NSManagedObject>(entity: T) throws {
         persistentContainer.viewContext.delete(entity)
         try saveContext()
     }

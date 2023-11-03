@@ -8,15 +8,11 @@
 import FirebaseDatabase
 import RxSwift
 
-final class FirebaseManager<T: RemoteType> {
-    let firebaseDB: DatabaseReference
-    
-    init(name: String) {
-        firebaseDB = Database.database().reference().child(name)
-    }
-    
-    func loadData(handler: @escaping (Result<[T], Error>) -> Void) {
-        firebaseDB.getData { error, snapshot in
+final class FirebaseManager {
+    let firebaseDB: DatabaseReference = Database.database().reference()
+
+    func loadData<T: Decodable>(entityName: String, handler: @escaping (Result<[T], Error>) -> Void) {
+        firebaseDB.child(entityName).getData { error, snapshot in
             if let error {
                 handler(.failure(error))
                 return
@@ -41,11 +37,11 @@ final class FirebaseManager<T: RemoteType> {
         }
     }
     
-    func changeData(id: String, values: [String: Any]) {
-        firebaseDB.updateChildValues([id: values])
+    func changeData(entityName: String, id: String, values: [String: Any]) {
+        firebaseDB.child(entityName).updateChildValues([id: values])
     }
     
-    func deleteData(id: String) {
-        firebaseDB.child(id).removeValue()
+    func deleteData(entityName: String, id: String) {
+        firebaseDB.child(entityName).child(id).removeValue()
     }
 }

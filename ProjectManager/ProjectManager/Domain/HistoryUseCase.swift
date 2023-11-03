@@ -8,15 +8,14 @@
 import Foundation
 
 struct HistoryUseCase {
-    let dataSyncManager: DataSyncManager<History, HistoryDTO>
+    let dataSyncManager: HistoryDataSyncManager
     
-    init(dataSyncManager: DataSyncManager<History, HistoryDTO>) {
+    init(dataSyncManager: HistoryDataSyncManager) {
         self.dataSyncManager = dataSyncManager
     }
     
     func fetchData() throws -> [History] {
-        let predicated = NSPredicate(format: "willBeDeleted == %d", false)
-        let result = try dataSyncManager.coreDataManager.fetchData(entityName:"History", predicate: predicated, sort: "createdAt", ascending: false)
+        let result: [History] = try dataSyncManager.coreDataManager.fetchData(entityName:"History", sort: "createdAt", ascending: false)
 
         return result
     }
@@ -24,21 +23,12 @@ struct HistoryUseCase {
     func createData(when date: Date, action: ActionType) throws {
         let values = [KeywordArgument(key: "id", value: UUID()),
                       KeywordArgument(key: "title", value: action.message),
-                      KeywordArgument(key: "createdAt", value: date),
-                      KeywordArgument(key: "willBeDeleted", value: false)]
+                      KeywordArgument(key: "createdAt", value: date)]
 
-        let entity = try dataSyncManager.coreDataManager.createData(values: values)
+        let entity: History = try dataSyncManager.coreDataManager.createData(values: values)
         
         if NetworkMonitor.shared.isConnected.value {
             try dataSyncManager.mergeSingleLocalDataToRemote(entity, uploadedAt: Date())
-        }
-    }
-    
-    func deleteData(_ entity: History) throws {
-        try dataSyncManager.coreDataManager.updateData(entity: entity,
-                                                       values: [KeywordArgument(key: "willBeDeleted", value: true)])
-        if NetworkMonitor.shared.isConnected.value {
-            try dataSyncManager.deleteSingleData(entity)
         }
     }
     
