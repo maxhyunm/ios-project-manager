@@ -14,7 +14,7 @@ struct ToDoUseCase {
     init(dataSyncManager: ToDoDataSyncManager) {
         self.dataSyncManager = dataSyncManager
     }
-    
+        
     func fetchDataByStatus(for status: ToDoStatus) throws -> [ToDo] {
         let predicated = NSPredicate(format: "status == %@ AND willBeDeleted == %d", status.rawValue, false)
         let result: [ToDo] = try dataSyncManager.coreDataManager.fetchData(entityName:"ToDo", predicate: predicated, sort: "modifiedAt")

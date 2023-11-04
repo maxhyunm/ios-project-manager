@@ -39,7 +39,7 @@ extension BaseListViewModel {
     func fetchData(for status: ToDoStatus) {
         do {
             children[status]?.entityList = try toDoUseCase.fetchDataByStatus(for: status)
-            
+
         } catch(let error) {
             errorMessage.accept(ProjectManagerError.downcastError(error).alertMessage)
         }
@@ -105,20 +105,19 @@ extension BaseListViewModel {
     func syncData() {
         toDoUseCase.syncData().subscribe(
             onSuccess: {
-                self.readData(for: .toDo)
-                self.readData(for: .doing)
-                self.readData(for: .done)
+                ToDoStatus.allCases.forEach { self.readData(for: $0) }
             },
             onFailure: { error in
                 self.errorMessage.accept(ProjectManagerError.downcastError(error).alertMessage)
-            })
+            }
+        )
         .disposed(by: disposeBag)
         
         historyUseCase.syncData().subscribe(
             onFailure: {error in
                 self.errorMessage.accept(ProjectManagerError.downcastError(error).alertMessage)
-            })
-        
+            }
+        )
         .disposed(by: disposeBag)
     }
 }
