@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 struct HistoryDataSyncManager {
     let coreDataManager: CoreDataManager
@@ -16,32 +17,20 @@ struct HistoryDataSyncManager {
         self.firebaseManager = firebaseManager
     }
     
-    func syncLocalWithRemote(handler: @escaping (Error) -> Void) {
-        do {
-            try mergeRemoteDataToLocal() { handler($0) }
+    func syncLocalWithRemote() -> Single<Void> {
+        return mergeRemoteDataToLocal().map { _ in
             try mergeLocalDataToRemote()
-        } catch(let error) {
-            handler(error)
         }
     }
     
-    private func mergeRemoteDataToLocal(handler: @escaping (Error) -> Void) throws {
-        firebaseManager.loadData(entityName: "History") { (result: Result<[HistoryDTO], Error>) in
-            switch result {
-            case .success(let data):
-                do {
-                    let localEntities: [History] = try coreDataManager.fetchData(entityName: "History")
-                    let localIdList: [UUID] = localEntities.map { $0.id }
-                    let remoteList = data.filter { !localIdList.contains($0.id) }
-                    
-                    try remoteList.forEach { entity in
-                        let _: History = try coreDataManager.createData(values: entity.makeAttributeKeywordArguments())
-                    }
-                } catch(let error) {
-                    handler(error)
-                }
-            case .failure(let error):
-                handler(error)
+    private func mergeRemoteDataToLocal() -> Single<Void> {
+        return firebaseManager.loadData(entityName: "History", type: HistoryDTO.self).map { entities in
+            let localEntities: [History] = try coreDataManager.fetchData(entityName: "History")
+            let localIdList: [UUID] = localEntities.map { $0.id }
+            let remoteList = entities.filter { !localIdList.contains($0.id) }
+            
+            try remoteList.forEach { entity in
+                let _: History = try coreDataManager.createData(values: entity.makeAttributeKeywordArguments())
             }
         }
     }

@@ -68,7 +68,7 @@ struct ToDoUseCase {
         }
     }
     
-    func syncData(handler: @escaping (Error) -> Void) {
-        dataSyncManager.syncLocalWithRemote() { handler($0) }
+    func syncData() -> Single<Void> {
+        return dataSyncManager.syncLocalWithRemote()
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 struct HistoryUseCase {
     let dataSyncManager: HistoryDataSyncManager
@@ -32,8 +33,8 @@ struct HistoryUseCase {
         }
     }
     
-    func syncData(handler: @escaping (Error) -> Void) {
-        dataSyncManager.syncLocalWithRemote() { handler($0) }
+    func syncData() -> Single<Void> {
+        return dataSyncManager.syncLocalWithRemote()
     }
 }
 

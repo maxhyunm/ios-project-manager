@@ -19,34 +19,22 @@ struct ToDoDataSyncManager {
         self.firebaseManager = firebaseManager
     }
     
-    func syncLocalWithRemote(handler: @escaping (Error) -> Void) {
-        do {
-            try mergeRemoteDataToLocal() { handler($0) }
-            try mergeLocalDataToRemote(for: .create)
-            try mergeLocalDataToRemote(for: .update)
-            try deleteData()
-        } catch(let error) {
-            handler(error)
+    func syncLocalWithRemote() -> Single<Void> {
+        return mergeRemoteDataToLocal().map { _ in
+            try self.mergeLocalDataToRemote(for: .create)
+            try self.mergeLocalDataToRemote(for: .update)
+            try self.deleteData()
         }
     }
     
-    private func mergeRemoteDataToLocal(handler: @escaping (Error) -> Void) throws {
-        firebaseManager.loadData(entityName: "ToDo") { (result: Result<[ToDoDTO], Error>) in
-            switch result {
-            case .success(let data):
-                do {
-                    let localEntities: [ToDo] = try coreDataManager.fetchData(entityName: "ToDo")
-                    let localIdList: [UUID] = localEntities.map { $0.id }
-                    let remoteList = data.filter { !localIdList.contains($0.id) }
-                    
-                    try remoteList.forEach { entity in
-                        let _: ToDo = try coreDataManager.createData(values: entity.makeAttributeKeywordArguments())
-                    }
-                } catch(let error) {
-                    handler(error)
-                }
-            case .failure(let error):
-                handler(error)
+    private func mergeRemoteDataToLocal() -> Single<Void> {
+        return firebaseManager.loadData(entityName: "ToDo", type: ToDoDTO.self).map { entities in
+            let localEntities: [ToDo] = try coreDataManager.fetchData(entityName: "ToDo")
+            let localIdList: [UUID] = localEntities.map { $0.id }
+            let remoteList = entities.filter { !localIdList.contains($0.id) }
+            
+            try remoteList.forEach { entity in
+                let _: ToDo = try coreDataManager.createData(values: entity.makeAttributeKeywordArguments())
             }
         }
     }

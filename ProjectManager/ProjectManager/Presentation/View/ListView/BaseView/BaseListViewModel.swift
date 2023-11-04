@@ -103,8 +103,17 @@ extension BaseListViewModel {
     }
     
     func syncData() {
-        toDoUseCase.syncData() {
-            self.errorMessage.accept(ProjectManagerError.downcastError($0).alertMessage)
-        }
+        toDoUseCase
+            .syncData()
+            .subscribe(
+                onSuccess: {
+                    self.readData(for: .toDo)
+                    self.readData(for: .doing)
+                    self.readData(for: .done)
+                },
+                onFailure: { error in
+                    self.errorMessage.accept(ProjectManagerError.downcastError(error).alertMessage)
+                })
+            .disposed(by: disposeBag)
     }
 }
